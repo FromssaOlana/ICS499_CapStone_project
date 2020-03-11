@@ -1,4 +1,6 @@
-// A student object 
+/*
+A student Prototype 
+*/
 function Student(name, studentId) {
     this.name = name;
     this.studentId = studentId;

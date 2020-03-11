@@ -56,18 +56,3 @@ Employer.prototype.getStudentApplication = function(studentId){
 Employer.prototype.getStudentApplication = function(name){
     return (this.employees.filter(emp => emp.name == name))[0];
 }
-
-
-
-
-// let abc = new Employer('cc', 01 );
-// let fro = new Student('fro', 001);
-// fro.setEmployer(abc);
-
-
-// abc.addEmployee(fro);
-// abc.addEmployee(new Student('fro', 002));
-
-// console.log(abc);
-
-// console.log((abc.getStudentApplication('fro')));
