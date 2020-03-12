@@ -1,0 +1,32 @@
+body {
+  background-color: white;
+}
+
+footer {
+  margin-top: 5rem;
+}
+
+/*header styling*/
+.header img {
+  width: 100%;
+}
+
+.header {
+  position: relative;
+  z-index: -1;
+}
+
+.centered h1{
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-100%, -50%);
+  color: white;
+  font-size: 4rem;
+  text-shadow: 3px 3px rgb(1, 1, 63);
+  padding: .8rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  
+}
