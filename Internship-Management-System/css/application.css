@@ -1,0 +1,70 @@
+body {
+	background-color: white;
+}
+
+.header img {
+    width: 100%;
+}
+  
+.header {
+    position: relative;
+    z-index: -1;
+}
+  
+.centered h1{
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-100%, -50%);
+    color: white;
+    font-size: 4rem;
+    text-shadow: 3px 3px rgb(1, 1, 63);
+    padding: .8rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.error {
+	color: red;
+}
+
+form {
+	width: 30rem;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	border: none;
+	background-color: rgb(1, 1, 63);
+	color: white;
+	padding: 2rem;
+	border-radius: 1rem;
+	margin-bottom: 8rem;
+	padding-bottom: 5rem;
+}
+
+label {
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	font-size: 1.2rem;
+}
+
+.button {
+	text-align: center;
+	font-size: 1.2rem;
+	cursor: pointer;
+	margin: 1rem;
+	margin-top: 3rem;
+	padding: .4rem 1.2rem;
+	background-color: white;
+	border: none;
+	color: rgb(1, 1, 63);
+	font-family: 'Staatliches', sans-serif;
+}
+
+input[type='text'], input[type='password']{
+	padding: .5rem;
+	border: 1px solid black;
+	width: 15rem;
+}
