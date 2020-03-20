@@ -4,8 +4,8 @@ include('loginfunctions.php');
 
 require_once "config.php";
 
-$username = $password = $confirm_password = $email = $firstname = $lastname = $company_name = "";
-$username_err = $password_err = $confirm_password_err = $email_err = $firstname_err = $lastname_err = $company_name_err = "";
+$username = $password = $confirm_password = $email = $firstname = $lastname = $studentID = "";
+$username_err = $password_err = $confirm_password_err = $email_err = $firstname_err = $lastname_err = $studentID_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"]))){
         $username_err = "Please Enter a Username.";
     } else{
-        $sql = "SELECT e_user_name FROM employers WHERE e_user_name = ?";
+        $sql = "SELECT S_User_Name FROM student WHERE S_User_Name = ?";
         if($stmt = mysqli_prepare($link, $sql)){
           mysqli_stmt_bind_param($stmt, "s", $param_username);
           $param_username = trim($_POST["username"]);
@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(empty(trim($_POST["email"]))){
     $email_err = "Please Enter an Email Address.";
   } else{
-    $sql = "SELECT e_email FROM employers WHERE e_email = ?";
+    $sql = "SELECT s_email FROM student WHERE s_email = ?";
     if($stmt = mysqli_prepare($link, $sql)){
       mysqli_stmt_bind_param($stmt, "s", $param_email);
       $param_email = trim($_POST["email"]);
@@ -101,36 +101,53 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		}
   }
 
-  //Validate company name
-	if(empty(trim($_POST["companyname"]))){
-    $company_name_err = "Please Enter Company Name.";
-  } else {
-      $company_name = trim($_POST["companyname"]);
-    if (!preg_match("/^[a-zA-Z ]*$/",$company_name)) {
-      $company_name_err = "Only letters and white space are allowed";
-    } else {
-      $company_name = trim($_POST["companyname"]);
+  // Validate studentID
+  if(empty(trim($_POST["studentID"]))){
+    $studentID_err = "Please Enter a Student ID.";
+  } else{
+    $sql = "SELECT student_id FROM student WHERE student_id = ?";
+    if($stmt = mysqli_prepare($link, $sql)){
+      mysqli_stmt_bind_param($stmt, "s", $param_studentID);
+      $param_studentID = trim($_POST["studentID"]);
+      if(mysqli_stmt_execute($stmt)){
+        mysqli_stmt_store_result($stmt);
+        if(mysqli_stmt_num_rows($stmt) == 1){
+          $studentID_err = "This Student ID is associated with an existing account.";
+        } else{
+          $studentID = trim($_POST["studentID"]);
+	      	if(strlen(trim($_POST["studentID"])) != 8){
+            $studentID_err = "Please enter a valid Student ID.";
+          } else if (!preg_match("/^\d+$/", $studentID)) {
+			      $studentID_err = "Only numbers are allowed";
+		      } else {
+			      $studentID = trim($_POST["studentID"]);
+		      }
+        }
+      } else{
+        echo "Error. Please try again later.";
+      }
+      mysqli_stmt_close($stmt);
     }
   }
 
 
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) 
-    && empty($firstname_err) && empty($lastname_err) && empty($company_name_err)){
+    && empty($firstname_err) && empty($lastname_err) && empty($studentID_err)){
 
 
-        $sql = "INSERT INTO employer (e_user_name, e_password, e_email, e_first_name, e_last_name, company_name) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO student (s_user_name, s_password, s_email, s_first_name, s_last_name, student_id, app_status) VALUES (?, ?, ?, ?, ?, ?, NULL)";
 
         if($stmt = mysqli_prepare($link, $sql)){
 
-            mysqli_stmt_bind_param($stmt, "ssssss", $param_username, $param_password, $param_email, $param_firstname, $param_lastname, $param_company_name);
+            mysqli_stmt_bind_param($stmt, "sssssi", $param_username, $param_password, $param_email, $param_firstname, $param_lastname, $param_studentID);
 
 
             $param_username = $username;
             $param_password = SHA1($password);
 			      $param_email = $email;
 			      $param_firstname = $firstname;
-            $param_lastname = $lastname;
-            $param_company_name = $company_name;
+			      $param_lastname = $lastname;
+            $param_studentID = $studentID;
 
             if(mysqli_stmt_execute($stmt)){
                 echo "User Registered!";
@@ -141,7 +158,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "Email: ",$param_email;
                 echo "First Name: ",$param_firstname;
                 echo "Last Name: ",$param_lastname;
-                echo "Company Name: ",$param_company_name;
+                echo "Student ID: ",$param_studentID;
                 echo "Something went wrong. Please try again later.";
             }
             mysqli_stmt_close($stmt);
@@ -166,7 +183,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     header('location:index.php');
   } ?>
 
-    <h1>Sign Up As an Employer</h1>
+    <h1>Sign Up</h1>
     <div class="form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 				<p>Please create an account.</p>
@@ -207,13 +224,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<br>
 					<span class="error"><?php echo $lastname_err; ?></span>
         </div>
-        <div <?php echo (!empty($company_name_err)) ? 'has-error' : ''; ?>>
-					<label>Company Name</label>
-					<input type="text" name="companyname" value="<?php echo $company_name; ?>" placeholder="Company Name">
+        <div <?php echo (!empty($studentID_err)) ? 'has-error' : ''; ?>>
+					<label>Student ID</label>
+					<input type="text" name="studentID" value="<?php echo $studentID; ?>" placeholder="Student ID">
 					<br>
-					<span class="error"><?php echo $company_name_err; ?></span>
+					<span class="error"><?php echo $studentID_err; ?></span>
         </div>
-        <div><a href="registerstudent.php"><label>Sign up as a Student</label></a></div>
+        <div><a href="registeremployer.php"><label>Sign up as an Employer</label></a></div>
 				<div>
 					<input type="submit" class="button" value="Submit">
 					<input type="reset" class="button" value="Reset">

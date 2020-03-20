@@ -40,7 +40,7 @@ global $username_err, $username, $password_err, $password;
 				<div>
 					<input type="submit" class ="button" value="Login">
 				</div>
-				<p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+				<p>Don't have an account? <a href="registerstudent.php">Sign up now</a>.</p>
 			</form>
 		</fieldset>
 </div>
