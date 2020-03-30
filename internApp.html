@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="stylesheet" href="IA.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<body>
+
+<h1>Academic Internship Application</h1>
+
+<form action="/action_page.php">
+  <label for="fname">Student Name:</label>
+  <input type="text" id="fname" name="fname">
+  <label for="IDnum">Student ID Number:</label>
+  <input type="text" id="IDN" name="IDN"><br><br>
+ 
+  <label for="Address">Address:</label>
+  <input type="text" id="Address" name="Address">
+ 
+   <label for="City">City:</label>
+  <input type="text" id="City" name="City"><br><br>
+ 
+   <label for="State">State:</label>
+  <input type="text" id="State" name="State">
+ 
+   <label for="Zip">Zip:</label>
+  <input type="text" id="Zip" name="Zip"><br><br>
+ 
+   <label for="SS">Site Supervisor (Full Legal Name):</label>
+  <input type="text" id="SS" name="SiteS">
+ 
+   <label for="PhoneNum">Phone:</label>
+  <input type="text" id="PhoneNum" name="PhoneNum"><br><br>
+ 
+   <label for="Email">Email (official student email only):</label>
+  <input type="text" id="Email" name="Email"><br>
+ 
+  <p> Evaluator�s qualifications relating to this internship; include education/experience and attach one copy of brief resume if evaluator is not Metropolitan
+State faculty.</p> <br>
+ 
+     <label for="title">Title of internship (as it will appear on your transcript):</label>
+  <input type="text" id="title" name="title"><br>
+ 
+    <label for="focus">Academic focus of the internship (such as finance, public relations or political science):</label>
+  <input type="text" id="focus" name="focus"><br><br>
+ 
+ 
+ <!-- function onlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('check')
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false
+    })
+} -->
+<a> Check One: <a>
+<input type="checkbox" id="Graduate" name="Graduate" value="Graduate">
+<label for="Graduate"> Graduate </label>
+<input type="checkbox" id="Undergrad" name="Undergrad" value="Undergrad">
+<label for="Undergrad"> Undergraduate </label><br>
+<a> Check One:<a>
+<input type="checkbox" id="LG" name="LG" value="LG">
+<label for="LG"> Letter grade (if allowed in college/dept) </label>
+<input type="checkbox" id="SN" name="SN" value="SN">
+<label for="SN"> S/N </label><br><br>
+ 
+ <p> I have read and meet the required guidelines of (check the box that applies to this internship): <p>
+ 
+  <input type="checkbox" id="PublicA" name="PublicA" value="PublicA">
+<label for="PublicA"> College of Community Studies and Public Affairs  </label>
+
+<input type="checkbox" id="CIA" name="CIA" value="CIA">
+<label for="CIA">College of Individualized Studies </label>
+<input type="checkbox" id="CLA" name="CLA" value="CLA">
+<label for="CLA"> College of Liberal Arts </label>
+<br>
+<input type="checkbox" id="CM" name="CM" value="CM">
+<label for="CM"> College of Management  </label>
+<input type="checkbox" id="CS" name="CS" value="CS">
+<label for="CS"> College of Sciences </label><br><br>
+
+ 
+  <label for="Major">Academic focus of major:</label>
+  <input type="text" id="Major" name="Major">
+ 
+   <label for="Minor">Academic focus of minor:</label>
+  <input type="text" id="Minor" name="Minor"><br><br>
+ 
+ 
+ 
+<label for="datefilter">Dates of internship (Start/Stop):</label>
+<input type="text" id="datefilter" name="datefilter" value="" />
+
+<script type="text/javascript">
+$(function() {
+
+  $('input[name="datefilter"]').daterangepicker({
+      autoUpdateInput: false,
+      locale: {
+          cancelLabel: 'Clear'
+      }
+  });
+
+  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+  });
+
+  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+});
+</script>
+ 
+ <label for="hours"> Number of hours per week:</label>
+  <input type="text" id="hours" name="hours"><br>
+ 
+  
+<a>Compensation:<a>  
+<input type="checkbox" id="Unpaid" name="Unpaid" value="Unpaid">
+<label for="Unpaid"> Unpaid</label>
+<input type="checkbox" id="Wages" name="Wages" value="Wages">
+<label for="Wages"> Wages </label>
+<input type="checkbox" id="Stipend" name="Stipend" value="Stipend">
+<label for="Stipend"> Stipend </label>
+<input type="checkbox" id="Reimbursement" name="Reimbursement" value="Reimbursement">
+<label for="Reimbursement"> Reimbursement (such as tuition or expenses) </label><br><br>
+
+<label for="Competence Statement:">Competence Statement: the anticipated
+learning outcomes format, what you intend to
+learn. See Handbook on how to write a
+competence statement.</label><br>
+
+<textarea id="Competence Statement" rows="6" cols="50">
+</textarea><br>
+
+<label for="Learning Starategies:">Learning Strategies: describe what you are
+planning to do; include practical and
+theoretical applications. Be sure to include any
+college/dept. deliverables such as journals,
+papers, or group meetings.</label><br>
+
+<textarea id="Learning Starategies" rows="6" cols="50">
+</textarea><br>
+
+<label for="Evaluation:">Evaluation: describe how the evaluator will
+evaluate and document the learning.</label><br>
+
+<textarea id="Evaluation" rows="6" cols="50">
+</textarea><br>
+
+ <input type="submit" value="Submit">
+   
+</form>
+
+
+</body>
+</html>
