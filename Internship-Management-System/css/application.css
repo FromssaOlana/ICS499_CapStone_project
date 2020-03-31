@@ -2,27 +2,12 @@ body {
 	background-color: white;
 }
 
-.header img {
-    width: 100%;
-}
-  
-.header {
-    position: relative;
-    z-index: -1;
-}
-  
-.centered h1{
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-100%, -50%);
-    color: white;
-    font-size: 4rem;
-    text-shadow: 3px 3px rgb(1, 1, 63);
-    padding: .8rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+h1 {
+	margin-top: 10rem;
+	text-align: center;
+	color: rgb(1, 1, 63);
+	text-shadow: 1.5px 1.5px black;
+	font-size: 2.8rem;
 }
 
 .error {
@@ -67,4 +52,8 @@ input[type='text'], input[type='password']{
 	padding: .5rem;
 	border: 1px solid black;
 	width: 15rem;
+}
+
+textarea {
+	resize: vertical; /* user can resize vertically, but width is fixed */
 }

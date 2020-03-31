@@ -3,35 +3,26 @@ require_once "User.php";
 
 class Student extends User{
     protected $student_id;
+    const USER_TYPE = "Student";
 
     function __construct($user_name,$password,$email,$first_name,$last_name,$student_id){
-        parent::__construct($user_name,$password,$email,$first_name,$last_name);
+        parent::__construct(Student::USER_TYPE,$user_name,$password,$email,$first_name,$last_name);
         $this->student_id = $student_id;
 
-        $sql = "INSERT INTO students (user_id, user_name, password, email, first_name, last_name, student_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO students (user_name, student_id) VALUES (?, ?)";
         
         if($stmt = mysqli_prepare(($this->link), $sql)){
 
-            mysqli_stmt_bind_param($stmt, "isssssi", $param_user_id, $param_user_name, $param_password, $param_email, $param_first_name, $param_last_name, $param_student_id);
+            mysqli_stmt_bind_param($stmt, "si", $param_user_name, $param_student_id);
 
-            $param_user_id = $this->user_id;
             $param_user_name = $user_name;
-            $param_password = SHA1($password);
-			$param_email = $email;
-			$param_first_name = $first_name;
-			$param_last_name = $last_name;
             $param_student_id = $student_id;
 
             if(mysqli_stmt_execute($stmt)){
                 echo "User Registered!";
                 header("location: login.php");
             } else{
-                echo "User_ID: ",$param_user_id;
                 echo " Username: ",$param_user_name;
-                echo " Password: ",$param_password;
-                echo " Email: ",$param_email;
-                echo " First Name: ",$param_first_name;
-                echo " Last Name: ",$param_last_name;
                 echo " Student id: ",$param_student_id;
                 echo " Something went wrong. Please try again later.";
             }

@@ -10,7 +10,7 @@ $user_name_err = $password_err = $confirm_password_err = $email_err = $first_nam
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    //Validate username
+    // Validate username
     if(empty(trim($_POST["username"]))){
         $user_name_err = "Please Enter a Username.";
     } else{

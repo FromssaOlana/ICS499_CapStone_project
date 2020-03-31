@@ -11,17 +11,19 @@ if($link === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
- //Jaclyn's Local Connection - comment this out if I forget to
-/*define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '12345');
-define('DB_NAME', 'ics325fa1907');
+function OpenCon(){
+    $db_host = 'localhost';
+    $db_user_name = 'root';
+    $db_password = '';
+    $db = 'project';
 
-
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
-if($link === false){
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+    $conn = new mysqli($db_host,$db_user_name,$db_password,$db) or die("Connection failed: %s\n" . $conn->error);
+    return $conn;
 }
-*/
+
+function CloseCon(){
+    $conn = $this->link;
+    $conn->close();
+}
+
 ?>

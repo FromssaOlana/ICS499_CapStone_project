@@ -1,7 +1,7 @@
 <?php
 
 class User {
-    protected $user_id;
+    protected $user_type;
     protected $user_name;
     protected $password;
     protected $email;
@@ -10,22 +10,22 @@ class User {
     public static $number_of_users = 0;
     protected $link;
 
-    function __construct($user_name,$password,$email,$first_name,$last_name){
-        $this->link = User::OpenCon();
+    function __construct($user_type,$user_name,$password,$email,$first_name,$last_name){
         User::updateNumOfUsers();
-        $this->user_id = User::$number_of_users;
+        $this->link = User::OpenCon();
+        $this->user_type = $user_type;
         $this->user_name = $user_name;
         $this->password = $password;
         $this->email = $email;
         $this->first_name = $first_name;
         $this->last_name = $last_name;
 
-        $sql = "INSERT INTO users (user_id,user_name,password, email, first_name, last_name) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (user_type,user_name,password, email, first_name, last_name) VALUES (?, ?, ?, ?, ?, ?)";
 
         if($stmt = mysqli_prepare(($this->link), $sql)){
 
-            mysqli_stmt_bind_param($stmt, "isssss", $param_user_id, $param_user_name, $param_password, $param_email, $param_first_name, $param_last_name);
-            $param_user_id = $this->user_id;
+            mysqli_stmt_bind_param($stmt, "ssssss", $param_user_type, $param_user_name, $param_password, $param_email, $param_first_name, $param_last_name);
+            $param_user_type = $user_type;
             $param_user_name = $user_name;
             $param_password = SHA1($password);
 			$param_email = $email;
@@ -36,7 +36,7 @@ class User {
                 echo "User Registered!";
                 header("location: login.php");
             } else{
-                echo "User ID: ",$param_user_id;
+                echo " User Type: ",$param_user_type;
                 echo " Username: ",$param_user_name;
                 echo " Password: ",$param_password;
                 echo " Email: ",$param_email;
@@ -55,6 +55,9 @@ class User {
 
     function __set($name, $value){
         switch($name){
+            case "user_type":
+                $this->user_type = $value;
+                break;
             case "user_name":
                 $this->user_name = $value;
                 break;
@@ -74,6 +77,22 @@ class User {
                 echo $name . "Not Found";
         }
         echo "Set " . $name . " to " . $value . "<br/>";
+    }
+
+    static function changePassword($user_name,$password){
+        $link = User::OpenCon();
+        $new_password = SHA1($password);
+        $sql = "UPDATE users SET password = '$new_password' WHERE user_name = '$user_name'";
+
+        if($stmt = mysqli_prepare($link, $sql)){
+
+            if($mysqli = mysqli_stmt_execute($stmt)){
+                echo " Password Changed";
+            } else{
+                echo " Something went wrong. Please try again later.";
+            }
+            mysqli_stmt_close($stmt);
+        }
     }
 
     static function OpenCon(){

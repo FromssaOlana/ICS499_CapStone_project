@@ -25,7 +25,7 @@ function login(){
       // Validate credentials
       if(empty($user_name_err) && empty($password_err)){
 
-          $sql = "SELECT user_id, user_name, password FROM users WHERE user_name = ?";
+          $sql = "SELECT user_name, password FROM users WHERE user_name = ?";
 
           if($stmt = mysqli_prepare($link, $sql)){
               mysqli_stmt_bind_param($stmt, "s", $param_user_name);
@@ -35,14 +35,13 @@ function login(){
                   mysqli_stmt_store_result($stmt);
 
                   if(mysqli_stmt_num_rows($stmt) == 1){
-                      mysqli_stmt_bind_result($stmt, $user_id, $user_name, $hashed_password);
+                      mysqli_stmt_bind_result($stmt, $user_name, $hashed_password);
 
                       if(mysqli_stmt_fetch($stmt)){
                           if(SHA1($password) == $hashed_password){
                               session_start();
 
                               $_SESSION["loggedin"] = true;
-                              $_SESSION["user_id"] = $user_id;
                               $_SESSION["user_name"] = $user_name;
 
                               header("location: index.php");
@@ -76,7 +75,7 @@ function isLoggedIn(){
         <ul>
           <li><a href=\"index.php\"><img src='images/logo2.png' alt='metrostate logo' height='50' width='200'></a></li>
   		    <li><a href=\"index.php\">Home</a></li>
-  		    <li><a href=\"application.php\">Application</a></li>
+  		    <li><a href=\"applicationform.php\">Application</a></li>
   		    <li><a href=\"logout.php\">Logout</a></li>
           <li><span class='user'>$user_name</span></li>
   		  </ul>
@@ -91,7 +90,6 @@ function isLoggedIn(){
         <ul>
           <li><a href=\"index.php\"><img src='images/logo2.png' alt='metrostate logo' height='50' width='200'></a></li>
           <li><a href=\"index.php\">Home</a></li>
-          <li><a href=\"application.php\">Application</a></li>
   		    <li><a href=\"logout.php\">Logout</a></li>
   				<li><a href='adminpage.php'><div id='admin'>$user_name</div></a></li>
   		  </ul>
@@ -104,7 +102,6 @@ function isLoggedIn(){
         <ul>
           <li><a href=\"index.php\"><img src='images/logo2.png' alt='metrostate logo' height='50' width='200'></a></li>
           <li><a href=\"index.php\">Home</a></li>
-          <li><a href=\"application.php\">Application</a></li>
           <li><a href=\"registerstudent.php\">Register</a></li>
           <li><a href=\"login.php\">Login</a></li>
         </ul>
@@ -188,7 +185,6 @@ function isLoggedInAdmin(){
       <ul>
         <li><a href=\"index.php\"><img src='images/logo2.png' alt='metrostate logo' height='50' width='200'></a></li>
         <li><a href=\"index.php\">Home</a></li>
-        <li><a href=\"application.php\">Application</a></li>
         <li><a href=\"logout.php\">Logout</a></li>
         <li><a href='adminpage.php'><div id='admin'>$username</div></a></li>
       </ul>

@@ -15,7 +15,7 @@ include('loginfunctions.php');
 <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
 </head>
 <body>
-  <?php isLoggedIn(); ?>
+  <?php isLoggedIn();?>
 
   <div class="header centered">
     <img src="images/students.jpg">

@@ -2,7 +2,7 @@
 session_start();
 include('loginfunctions.php');
 logout();
-header("refresh:10;url=index.php");
+header("refresh:3;url=index.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,9 +19,7 @@ header("refresh:10;url=index.php");
   <nav>
       <ul>
         <li><a href="index.php">Home</a></li>
-        <li><a href="concerts.php">Concerts</a></li>
-        <li><a href="Purchase.php">Purchase Tickets</a></li>
-        <li><a href="News.php">News</a></li>
+        <li><a href="registerstudent.php">Register</a></li>
         <li><a href="login.php">Login</a></li>
       </ul>
     </nav>

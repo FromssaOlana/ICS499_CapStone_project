@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"]))){
         $user_name_err = "Please Enter a Username.";
     } else{
-        $sql = "SELECT User_Name FROM employers WHERE User_Name = ?";
+        $sql = "SELECT User_Name FROM users WHERE User_Name = ?";
         if($stmt = mysqli_prepare($link, $sql)){
           mysqli_stmt_bind_param($stmt, "s", $param_username);
           $param_username = trim($_POST["username"]);
@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   if(empty(trim($_POST["email"]))){
     $email_err = "Please Enter an Email Address.";
   } else{
-    $sql = "SELECT Email FROM employers WHERE Email = ?";
+    $sql = "SELECT Email FROM users WHERE Email = ?";
     if($stmt = mysqli_prepare($link, $sql)){
       mysqli_stmt_bind_param($stmt, "s", $param_email);
       $param_email = trim($_POST["email"]);
