@@ -20,7 +20,7 @@ class User {
         $this->first_name = $first_name;
         $this->last_name = $last_name;
 
-        $sql = "INSERT INTO users (user_type,user_name,password, email, first_name, last_name) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (user_type,user_name,password, email, first_name, last_name, created) VALUES (?, ?, ?, ?, ?, ?, NOW())";
 
         if($stmt = mysqli_prepare(($this->link), $sql)){
 
@@ -33,8 +33,7 @@ class User {
 			$param_last_name = $last_name;
 
             if($mysqli = mysqli_stmt_execute($stmt)){
-                echo "User Registered!";
-                header("location: login.php");
+                
             } else{
                 echo " User Type: ",$param_user_type;
                 echo " Username: ",$param_user_name;

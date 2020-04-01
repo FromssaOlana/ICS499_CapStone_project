@@ -136,13 +136,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     //Validate company name
 	  if(empty(trim($_POST["companyname"]))){
-        $company_name_err = "Please Enter your Company's name.";
+      $company_name_err = "Please Enter your Company's name.";
     } else {
-		  if (!preg_match("/^[a-zA-Z ]*$/",trim($_POST["companyname"]))) {
-			  $company_name_err = "Only letters and white space are allowed";
-		  } else {
-			  $company_name = trim($_POST["companyname"]);
-		  }
+			$company_name = trim($_POST["companyname"]);
     }
 
     // Validate company email
@@ -267,7 +263,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       }
   }
 
-      //Validate resume.pdf
+      //Validate resume
     if (isset($_FILES['internshipevaluatorresume'] ) ) {
       $file = $_FILES['internshipevaluatorresume'];
 
@@ -286,9 +282,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           if($fileSize < 1000000){
             $fileNameNew = uniqid('',true).".".$fileActualExt;
             $fileDestination = 'uploads/'.$fileNameNew;
+            $internship_evaluator_resume = $fileDestination;
             move_uploaded_file($tmpName,$fileDestination);
 
-            $internship_evaluator_resume = $fileDestination;
             $content = $fileDestination;
 
             $sql = "INSERT INTO upload (name, type, size, content) VALUES (?,?,?,?)";
@@ -303,7 +299,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       
               if(mysqli_stmt_execute($stmt)){
                 echo "Resume Submitted!";
-                //header("location: login.php");
               } else{
                 echo " File Name: ",$param_fileName;
                 echo " File Size: ",$param_fileSize;
@@ -314,8 +309,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               }
                 mysqli_stmt_close($stmt);
             }
-
-            header("Location: index.php?uploadsuccess");
           } else{
             $internship_evaluator_resume_err = "Your file was too big.";
           }
@@ -525,10 +518,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       $internship_evaluator_phone, $internship_evaluator_email, $internship_evaluator_resume, $internship_title, $academic_focus, 
       $graduate_or_undergraduate, $grading_scale, $requested_credits, $college, $academic_major, $academic_minor, $start_date, $end_date,
       $hours_per_week, $compensation, $competence_statement, $learning_strategy, $evaluation,$student_signature);
-      echo "Awesome Sauce";
-    } else{
-      echo "WTF!";
-    }
+      header("Location: index.php?applicationsubmitted");
+    } 
 
     mysqli_close($link);
 }
@@ -543,9 +534,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/generalstylesheet.css">
 	  <link rel="stylesheet" type="text/css" href="css/application.css">
-	  <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
 </head>
   <body>
+  <div id="page-container">
+   <div id="content-wrap">
       <?php if(isLoggedIn()){
        include('header.html');} ?>
 
@@ -892,6 +885,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 				</div>
       </form>
     </div>
+    </div>
     <?php include('footer.html');?>
+    </div>
   </body>
 </html>

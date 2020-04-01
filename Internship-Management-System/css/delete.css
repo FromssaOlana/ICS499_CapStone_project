@@ -1,12 +1,12 @@
 body {
-  background-color: orange;
+  background-color: white;
 }
 
 #delete {
-  color: white;
+  color: rgb(1, 1, 63);
   text-align: center;
   margin-top: 8rem;
-  text-shadow: 1.5px 1.5px red;
+  text-shadow: 1.5px 1.5px gray;
 }
 
 form {
@@ -15,7 +15,7 @@ form {
 }
 
 form label {
-  color: red;
+  color: rgb(1, 1, 63);
   display: block;
   margin-bottom: 1rem;
   font-size: 1.2rem;

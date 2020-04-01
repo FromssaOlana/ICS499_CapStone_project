@@ -19,8 +19,7 @@ class Employer extends User{
             $param_company_name = $company_name;
 
             if(mysqli_stmt_execute($stmt)){
-                echo "User Registered!";
-                header("location: login.php");
+                
             } else{
                 echo " Username: ", $param_user_name;
                 echo " Company Name: ", $param_company_name;

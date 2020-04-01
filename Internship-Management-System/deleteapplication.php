@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Delete User</title>
+<title>Delete Application</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/generalstylesheet.css">
@@ -18,30 +18,29 @@
 <body>
   <div id="page-container">
    <div id="content-wrap">
-
 <?php
-    if (isLoggedInAdmin()){
+    if (isLoggedIn()){
       include('header.html');
-      echo "<h1 id='delete'>Delete User</h1>";
+      echo "<h1 id='delete'>Delete Application</h1>";
       echo "<form method='post'>";
       echo "<label>Confirm Deletion</label>";
       echo "<button type='submit' name='delete' id='deletebut'>Delete</button>";
       echo "</form>";
     } else {
-      isNotLoggedInAdmin();
       include('header.html');
+      isNotLoggedIn();
     }
   ?>
 
   <?php
   if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $user_name = $_GET['username'];
+    $application_id = $_GET['applicationid'];
 
-    $query = "DELETE FROM users WHERE User_Name='".$user_name."'";
+    $query = "DELETE FROM applications WHERE application_id ='".$application_id."'";
 
     if(mysqli_query($link, $query)){
-      echo "<script type='text/javascript'>alert('User successfully deleted!');</script>";
-      header( "refresh:.5;url=manageusers.php" );
+      echo "<script type='text/javascript'>alert('Application successfully deleted!');</script>";
+      header( "refresh:.5;url=manageapplications.php" );
     }else {
       echo "ERROR: Could not able to execute $query. ".mysqli_error($db);
     }
@@ -49,11 +48,10 @@
   }
 
    ?>
-
-  </div>
+   </div>
   <?php
     include('footer.html');
   ?>
-  </div>
+    </div>
 </body>
 </html>

@@ -114,7 +114,7 @@ class Application {
 
         if($stmt = mysqli_prepare($link, $sql)){
 
-            mysqli_stmt_bind_param($stmt, "isisssisssssssssissssssbssssisssssissssssssss", $param_application_ID, $param_student_name, $param_student_ID, $param_student_address,
+            mysqli_stmt_bind_param($stmt, "isisssisssssssssisssssssssssisssssissssssssss", $param_application_ID, $param_student_name, $param_student_ID, $param_student_address,
             $param_student_city, $param_student_state, $param_student_zip_code, $param_student_home_phone, $param_student_work_phone, $param_metrostate_advisor,$param_student_email,
             $param_company_name,$param_company_email, $param_company_address,$param_company_city,$param_company_state,$param_company_zip_code,$param_site_supervisor_name, $param_site_supervisor_phone,
             $param_site_supervisor_email,$param_internship_evaluator_name,$param_internship_evaluator_phone,$param_internship_evaluator_email,$param_internship_evaluator_resume,$param_internship_title,
@@ -169,7 +169,7 @@ class Application {
             $param_application_status = $this->application_status;
 
             if(mysqli_stmt_execute($stmt)){
-                echo "Application Submitted!"; 
+                
             } else{
                 die('execute() failed: ' . htmlspecialchars($stmt->error));
             }

@@ -1,16 +1,16 @@
 body {
-  background-color: orange;
+  background-color: white;
 }
 
 /*top = username header and delete link*/
 #top {
-  margin-top: 7rem;
+  margin-top: 9rem;
 }
 
 #top h1 {
   text-align: center;
-  color: white;
-  text-shadow: 1.5px 1.5px red;
+  color: rgb(1, 1, 63);
+  text-shadow: 1.5px 1.5px black;
   font-size: 2.5rem;
   margin-bottom: .5rem;
 }
@@ -34,14 +34,15 @@ body {
 
 /*user info container*/
 #container {
-  padding: 1rem;
-  margin-bottom: 8rem;
-  background-color: darkorange;
+  padding: 2.5rem;
+  margin-bottom: 2.5rem;
+  background-color: gray;
+  border-radius: 2rem;
 }
 
 /*user type*/
 #container h2 {
-  color: white;
+  color: black;
   font-size: 1.8rem;
   margin-bottom: .5rem;
   text-align: center;
@@ -51,14 +52,11 @@ body {
 #container table {
   margin-left: auto;
   margin-right: auto;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: white;
+  background-color: rgb(1, 1, 63);;
 }
 
 #container table td {
   padding: 1rem 3rem;
-}
-
-#container td:first-child {
-
 }

@@ -13,21 +13,30 @@ global $user_err, $pass_err;
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/generalstylesheet.css">
 <link rel="stylesheet" href="css/adminlogin.css">
-<link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<?php include('header.html');?>
-
+  <div id="page-container">
+  <div id="content-wrap">
   <?php
   if (isLoggedInAdmin()){
+    include('header.html');
     echo "<h1>Redirecting to Admin Page. . .</h1>";
-    header("refresh:1;url=adminpage.php");
-
-  }elseif(isset($_SESSION['username'])){
+    header("refresh:1;url=manageusers.php");
+  } elseif(isset($_SESSION['username'])){
+    include('header.html');
     header('location:index.php');
-  }
-  else{
+  } else{
+    echo "<nav>
+        <ul>
+          <li><a href=\"index.php\"><img src='images/logo2.png' alt='metrostate logo' height='50' width='200'></a></li>
+          <li><a href=\"index.php\">Home</a></li>
+          <li><a href=\"registerstudent.php\">Register</a></li>
+          <li><a href=\"login.php\">Login</a></li>
+        </ul>
+      </nav>";
+    include('header.html');
     echo '
     <h2>Admin Login</h2>
     <div id="form">
@@ -44,9 +53,12 @@ global $user_err, $pass_err;
       </form>
     </div>
     ';
-    include('footer.html'); 
   }
   ?>
-
+</div>
+  <?php
+    include('footer.html');
+  ?>
+  </div>
 </body>
 </html>

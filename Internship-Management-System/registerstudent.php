@@ -134,6 +134,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($user_name_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) 
     && empty($first_name_err) && empty($last_name_err) && empty($student_ID_err)){
       new Student($user_name,$password,$email,$first_name,$last_name,$student_ID);
+      header("location: login.php");
     }
     mysqli_close($link);
 }
@@ -146,14 +147,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="css/generalstylesheet.css">
 	  <link rel="stylesheet" type="text/css" href="css/register.css">
-	  <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <?php include('header.html');?>
-  <?php if(isLoggedIn()){
-    header('location:index.php');
-  } ?>
+  <div id="page-container">
+  <div id="content-wrap">
 
+  <?php 
+    if(isLoggedIn()){
+      header('location:index.php');
+    } else{
+      include('header.html');
+    } 
+  ?>
     <h1>Sign Up As A Student</h1>
     <div class="form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -210,6 +216,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </form>
     </div>
 
-    <?php include('footer.html');?>
+    </div>
+    <?php include('footer.html'); ?>
+    </div>
+    
 </body>
 </html>

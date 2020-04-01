@@ -19,8 +19,7 @@ class Student extends User{
             $param_student_id = $student_id;
 
             if(mysqli_stmt_execute($stmt)){
-                echo "User Registered!";
-                header("location: login.php");
+
             } else{
                 echo " Username: ",$param_user_name;
                 echo " Student id: ",$param_student_id;

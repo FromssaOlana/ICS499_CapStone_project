@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2020 at 03:29 AM
+-- Generation Time: Apr 01, 2020 at 10:31 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -81,7 +81,8 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`Application_ID`, `Student_Name`, `Student_ID`, `Student_Address`, `Student_City`, `Student_State`, `Student_Zip_Code`, `Student_Home_Phone`, `Student_Work_Phone`, `Metrostate_Advisor`, `Student_Email`, `Company_Name`, `Company_Email`, `Company_Address`, `Company_City`, `Company_State`, `Company_Zip_Code`, `Site_Supervisor_Name`, `Site_Supervisor_Phone`, `Site_Supervisor_Email`, `Internship_Evaluator_Name`, `Internship_Evaluator_Phone`, `Internship_Evaluator_Email`, `Internship_Evaluator_Resume`, `Internship_Title`, `Academic_Focus`, `Graduate_Or_Undergraduate`, `Grading_Scale`, `Requested_Credits`, `College`, `Academic_Major`, `Academic_Minor`, `Start_Date`, `End_Date`, `Hours_Per_Week`, `Compensation`, `Competence_Statement`, `Learning_Strategy`, `Evaluation`, `Student_Signature`, `Employer_Signature`, `Faculty_Liaison_Signature`, `Dean_Signature`, `Internship_Coordinator_Signature`, `Application_Status`) VALUES
-(1, 'Prechar Xiong', 12345678, '2972 frederick pkwy', 'SAINT PAUL', 'MN', 55109, '320-336-9524', '320-336-9524', 'Dude Xiong', 'wp2080tl@go.minnstate.edu', 'CBRE', 'craig.nelson2@cbre.com', '10 River Park Plaza', 'Saint Paul', 'MN', 12345, 'Dude Xiong', '320-336-9524', 'craig.nelson2@cbre.com', 'Dude Xiong', '320-336-9524', 'craig.nelson2@cbre.com', 'uploads/5e8291aab5dc93.70391343.pdf', 'Awesome Dude', 'Awesome Focus', 'Undergraduate', 'Letter Grade', 4, 'College of Sciences', 'Computer Science', 'Mathematics', '2020-04-01', '2020-04-20', 4, 'Wages', 'I like turtles. I like turtles. I like turtles. I like \r\nturtles. I like turtles. I like turtles. I like turtles. I \r\nlike turtles.', 'I like turtles. I like turtles. I like turtles. I like \r\nturtles. I like turtles. I like turtles. I like turtles. I \r\nlike turtles.', 'I like turtles. I like turtles. I like turtles. I like \r\nturtles. I like turtles. I like turtles. I like turtles. I \r\nlike turtles.', 'Prechar Xiong', NULL, NULL, NULL, NULL, 'in progress');
+(1, 'Prechar Xiong', 12345678, '10 Something Street', 'Saint Paul', 'MN', 55130, '123-456-7890', '123-456-7890', 'That One Guy', 'wp1080lt@go.minnstate.edu', 'CBRE', 'CBRE@gmail.com', '1020 Oakdale Drive', 'Oakdale', 'MN', 55140, 'Thomas Anderson', '987-654-3210', 'tanderson@gmail.com', 'George Washington', '111-222-3333', 'gwashington@gmail.com', 'uploads/5e843e2dd0eab5.21204701.docx', 'Software Engineer Intern', 'Computer Science', 'Undergraduate', 'Letter Grade', 4, 'College of Sciences', 'Computer Science', 'Mathematics', '2020-04-20', '2020-08-20', 30, 'Wages', 'I like turtles! I like turtles! I like turtles! I like \r\nturtles! I like turtles! I like turtles! I like turtles! I \r\nlike turtles! I like turtles!', 'I like turtles! I like turtles! I like turtles! I like \r\nturtles! I like turtles! I like turtles! I like turtles! I \r\nlike turtles! I like turtles!', 'I like turtles! I like turtles! I like turtles! I like \r\nturtles! I like turtles! I like turtles! I like turtles! I \r\nlike turtles! I like turtles!', 'Prechar Xiong', 'craig nelson', 'craig nelson', 'craig nelson', 'craig nelson', 'Approved'),
+(2, 'Guy Niche', 98745610, 'Somewhere Street', 'Saint Paul', 'MN', 55130, '444-333-2222', '444-333-2222', 'That Guy There', 'myschoolemail@go.minnstate.edu', '3M', '3M@gmail.com', '1020 Oakdale Drive', 'Oakdale', 'MN', 55140, 'Thomas Anderson', '987-654-3210', 'someone@gmail.com', 'George Abraham', '444-333-2221', 'gabraham@gmail.com', 'uploads/5e8444c7319801.18397339.pdf', 'Software Engineer Intern', 'Computer Science', 'Graduate', 'S/N', 3, 'College of Sciences', 'Computer Science', 'Mathematics', '2020-04-20', '2020-08-20', 30, 'Stipend', 'I like sleeping! I like sleeping! I like sleeping! I like \r\nsleeping! I like sleeping! I like sleeping! I like sleeping!', 'I like sleeping! I like sleeping! I like sleeping! I like \r\nsleeping! I like sleeping! I like sleeping! I like sleeping!', 'I like sleeping! I like sleeping! I like sleeping! I like \r\nsleeping! I like sleeping! I like sleeping! I like sleeping!', 'Guy Niche', NULL, NULL, NULL, NULL, 'in progress');
 
 -- --------------------------------------------------------
 
@@ -99,19 +100,8 @@ CREATE TABLE `employers` (
 --
 
 INSERT INTO `employers` (`User_Name`, `Company_Name`) VALUES
-('dude', 'CBRE');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `output_images`
---
-
-CREATE TABLE `output_images` (
-  `imageID` tinyint(3) NOT NULL,
-  `imageType` varchar(25) NOT NULL,
-  `imageData` mediumblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+('employer101', 'CBRE'),
+('pxiong037', '3M');
 
 -- --------------------------------------------------------
 
@@ -129,8 +119,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`User_Name`, `Student_ID`) VALUES
-('dude123', 87654320),
-('pxiong037', 12345678);
+('dude', 12345678),
+('student101', 98745610);
 
 -- --------------------------------------------------------
 
@@ -151,7 +141,21 @@ CREATE TABLE `upload` (
 --
 
 INSERT INTO `upload` (`id`, `name`, `type`, `size`, `content`) VALUES
-(49, 'AER Get Started FAQ pdf aerotek.pdf', 'application/pdf', 448026, 'uploads/5e8291aab5dc93.70391343.pdf');
+(49, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c8e4d9a7e0.39598137.pdf'),
+(50, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c90c5fc8c7.30437427.pdf'),
+(51, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c9380d8973.24780259.pdf'),
+(52, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c952275211.48599278.pdf'),
+(53, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83ca440e4212.14407645.pdf'),
+(54, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83caa2cef8b8.15066115.pdf'),
+(55, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e8439267e1800.91619204.docx'),
+(56, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843d0a542025.11084001.docx'),
+(57, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843d807fd506.11843061.docx'),
+(58, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843dad357513.18515590.docx'),
+(59, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843e2dd0eab5.21204701.docx'),
+(60, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e84443b254215.69398772.docx'),
+(61, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e84446ce419d9.34500749.docx'),
+(62, 'Internship Evaluation Resume.pdf', 'application/pdf', 188529, 'uploads/5e8444a92b2ff2.94454356.pdf'),
+(63, 'Internship Evaluation Resume.pdf', 'application/pdf', 188529, 'uploads/5e8444c7319801.18397339.pdf');
 
 -- --------------------------------------------------------
 
@@ -165,17 +169,23 @@ CREATE TABLE `users` (
   `Password` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `First_Name` varchar(20) NOT NULL,
-  `Last_Name` varchar(20) NOT NULL
+  `Last_Name` varchar(20) NOT NULL,
+  `Created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`User_Type`, `User_Name`, `Password`, `Email`, `First_Name`, `Last_Name`) VALUES
-('Employer', 'dude', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'craig.nelson2@cbre.com', 'Dude', 'Xiong'),
-('Student', 'dude123', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'dude123@gmail.com', 'Prechar', 'Xiong'),
-('Student', 'pxiong037', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'pxiong037@gmail.com', 'Prechar', 'Xiong');
+INSERT INTO `users` (`User_Type`, `User_Name`, `Password`, `Email`, `First_Name`, `Last_Name`, `Created`) VALUES
+('Admin', 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@gmail.com', 'Admin', 'Guy', '2020-03-31'),
+('Internship Coordinator', 'coordinator101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'internshipcoordinator@gmail.com', 'Craig', 'Kerska', '2020-03-31'),
+('Dean', 'dean101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'dean@gmail.com', 'Bob', 'Anderson', '2020-03-31'),
+('Student', 'dude', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'dude@gmail.com', 'Prechar', 'Xiong', '2020-03-31'),
+('Employer', 'employer101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'employer@gmail.com', 'Billy', 'Jean', '2020-04-01'),
+('Faculty Liaison', 'faculty101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'facultyliaison@gmail.com', 'Rob', 'Nelson', '2020-03-31'),
+('Employer', 'pxiong037', '7c4a8d09ca3762af61e59520943dc26494f8941b', '3M@gmail.com', 'Jackie', 'Chan', '2020-04-01'),
+('Student', 'student101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'student101@gmail.com', 'Guy', 'Niche', '2020-04-01');
 
 --
 -- Indexes for dumped tables
@@ -195,12 +205,6 @@ ALTER TABLE `applications`
 ALTER TABLE `employers`
   ADD PRIMARY KEY (`Company_Name`),
   ADD KEY `Employers_User_Name` (`User_Name`);
-
---
--- Indexes for table `output_images`
---
-ALTER TABLE `output_images`
-  ADD PRIMARY KEY (`imageID`);
 
 --
 -- Indexes for table `students`
@@ -226,16 +230,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `output_images`
---
-ALTER TABLE `output_images`
-  MODIFY `imageID` tinyint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `upload`
 --
 ALTER TABLE `upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- Constraints for dumped tables

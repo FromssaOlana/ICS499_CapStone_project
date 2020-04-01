@@ -113,7 +113,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($user_name_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err) 
     && empty($first_name_err) && empty($last_name_err) && empty($company_name_err)){
       new Employer($user_name,$password,$email,$first_name,$last_name,$company_name);
-      header("location: login.php");
+      echo "<script type='text/javascript'>alert('Employer User successfully created!');</script>";
+      header( "refresh:.5;url=manageusers.php" );
     }
     mysqli_close($link);
 }
@@ -123,27 +124,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Create Employer User</title>
     <link rel="stylesheet" type="text/css" href="css/generalstylesheet.css">
 	  <link rel="stylesheet" type="text/css" href="css/register.css">
 	  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div id="page-container">
-  <div id="content-wrap">
-  <?php 
-    if(isLoggedIn()){
-      header('location:index.php');
-    } else{
-      include('header.html');
-    } 
-  ?>
+   <div id="content-wrap">
+  <?php if(isLoggedInAdmin()){
+    include('header.html');
+  } ?>
 
-    <h1>Sign Up As an Employer</h1>
+    <h1>Create An Employer User</h1>
     <div class="form">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-				<p>Please create an account.</p>
-
 				<div <?php echo (!empty($user_name_err)) ? 'has-error' : ''; ?>>
 					<label>Username</label>
 					<input type="text" name="username" value="<?php echo $user_name; ?>" placeholder="Username">
@@ -186,18 +181,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 					<br>
 					<span class="error"><?php echo $company_name_err; ?></span>
         </div>
-        <div><a href="registerstudent.php"><label>Sign up as a Student</label></a></div>
-				<div>
-					<input type="submit" class="button" value="Submit">
-					<input type="reset" class="button" value="Reset">
-				</div>
-				<p>Already have an account? <a href="login.php">Login here</a>.</p>
+
+            <div>
+				<input type="submit" class="button" value="Submit">
+				<input type="reset" class="button" value="Reset">
+		    </div>
         </form>
     </div>
-    
-  </div>
-    <?php include('footer.html'); ?>
-  </div>
-  
+    </div>
+    <?php include('footer.html');?>
+    </div>
 </body>
 </html>

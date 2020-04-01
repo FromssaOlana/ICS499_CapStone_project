@@ -15,6 +15,8 @@ include('loginfunctions.php');
 <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div id="page-container">
+  <div id="content-wrap">
   <?php include('header.html');?>
   <?php isLoggedIn() ?>
 
@@ -64,6 +66,8 @@ include('loginfunctions.php');
      <a href="all.php">See all concerts ➔</a>
    </div>
 
-<?php include('footer.html'); ?>
+   </div>
+    <?php include('footer.html'); ?>
+  </div>
 </body>
 </html>

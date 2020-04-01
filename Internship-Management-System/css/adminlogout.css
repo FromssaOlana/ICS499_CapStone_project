@@ -1,13 +1,13 @@
 body {
-  background-color: orange;
+  background-color: white;
 }
 
 h2 {
   text-align: center;
   margin-top: 10rem;
   font-size: 2rem;
-  color: white;
-  text-shadow: 1.5px 1.5px red;
+  color:  rgb(1, 1, 63);
+  text-shadow: 1.5px 1.5px gray;
 }
 
 p {
