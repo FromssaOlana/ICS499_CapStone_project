@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2020 at 10:31 AM
+-- Generation Time: Apr 20, 2020 at 11:40 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -68,7 +68,50 @@ CREATE TABLE `applications` (
   `Competence_Statement` varchar(1000) NOT NULL,
   `Learning_Strategy` varchar(1000) NOT NULL,
   `Evaluation` varchar(1000) NOT NULL,
-  `Student_Signature` varchar(80) DEFAULT NULL,
+  `Submitted` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `applications`
+--
+
+INSERT INTO `applications` (`Application_ID`, `Student_Name`, `Student_ID`, `Student_Address`, `Student_City`, `Student_State`, `Student_Zip_Code`, `Student_Home_Phone`, `Student_Work_Phone`, `Metrostate_Advisor`, `Student_Email`, `Company_Name`, `Company_Email`, `Company_Address`, `Company_City`, `Company_State`, `Company_Zip_Code`, `Site_Supervisor_Name`, `Site_Supervisor_Phone`, `Site_Supervisor_Email`, `Internship_Evaluator_Name`, `Internship_Evaluator_Phone`, `Internship_Evaluator_Email`, `Internship_Evaluator_Resume`, `Internship_Title`, `Academic_Focus`, `Graduate_Or_Undergraduate`, `Grading_Scale`, `Requested_Credits`, `College`, `Academic_Major`, `Academic_Minor`, `Start_Date`, `End_Date`, `Hours_Per_Week`, `Compensation`, `Competence_Statement`, `Learning_Strategy`, `Evaluation`, `Submitted`) VALUES
+(1, 'Bro Dude', 87654321, '10 Somewhere Street', 'Saint Paul', 'MN', 55109, '1234567890', '1234567890', 'Some Guy', 'student102@gmail.com', 'CBRE', 'cbre@gmail.com', '10 Somewhere Street', 'Saint Paul', 'MN', 55109, 'Gohan Kakarot', '1234567890', 'dude@gmail.com', 'Cell', '1234567890', 'cell@gmail.com', '../app/uploads/31d0b036afdbc68fd8dd119d029bf2095888e570.pdf', 'Software Engineer', 'Computer Science', 'Undergraduate', 'Letter Grade', 4, 'College of Sciences', 'Computer Science', 'Mathematics', '2020-04-20', '2020-05-16', 35, 'Wages', 'I will know lotsa stuff. I will know lotsa stuff. I will \r\nknow lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff. I will know lotsa stuff. I \r\nwill know lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff. I will know lotsa stuff. I \r\nwill know lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff.', 'I will know lotsa stuff. I will know lotsa stuff. I will \r\nknow lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff. I will know lotsa stuff. I \r\nwill know lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff. I will know lotsa stuff. I \r\nwill know lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff.', 'I will know lotsa stuff. I will know lotsa stuff. I will \r\nknow lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff. I will know lotsa stuff. I \r\nwill know lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff. I will know lotsa stuff. I \r\nwill know lotsa stuff. I will know lotsa stuff. I will know \r\nlotsa stuff. I will know lotsa stuff. I will know lotsa \r\nstuff. I will know lotsa stuff.', '2020-04-18'),
+(2, 'Bro Dude', 87654321, '10 Somewhere Street', 'Saint Paul', 'MN', 55109, '1234567890', '1234567890', 'Roan Jr Guy', 'student102@gmail.com', '3M', '3M@gmail.com', '2921 Street Ave', 'Saint Paul', 'MN', 55103, 'Gohan Kakarot', '1234567890', '3213@gmail.com', 'Cell', '1234567890', 'employer@gmail.com', '../app/uploads/31d0b036afdbc68fd8dd119d029bf2095888e570.pdf', 'Software Engineer', 'Computer Science', 'Undergraduate', 'Letter Grade', 4, 'College of Management', 'Engineer', 'Mathematics', '2020-05-19', '2020-08-16', 40, 'Wages', 'Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios!', 'Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios!', 'Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios! \r\nCoolios! Coolios! Coolios! Coolios! Coolios! Coolios! Coolios!', '2020-04-20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applications_comments`
+--
+
+CREATE TABLE `applications_comments` (
+  `Application_ID` int(11) NOT NULL,
+  `User_ID` int(11) NOT NULL,
+  `Comment` varchar(1000) NOT NULL,
+  `Date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `applications_comments`
+--
+
+INSERT INTO `applications_comments` (`Application_ID`, `User_ID`, `Comment`, `Date`) VALUES
+(1, 15, 'I like doggos and hotdogs!', '2020-04-20 16:33:21'),
+(2, 14, 'Cool Stuff!', '2020-04-20 16:34:40'),
+(2, 15, 'Yea. Good Job!', '2020-04-20 16:36:12'),
+(2, 17, 'Nice!', '2020-04-20 16:37:10'),
+(2, 16, 'No comment.', '2020-04-20 16:38:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applications_status`
+--
+
+CREATE TABLE `applications_status` (
+  `Application_ID` int(11) NOT NULL,
+  `Student_Signature` varchar(80) NOT NULL,
   `Employer_Signature` varchar(80) DEFAULT NULL,
   `Faculty_Liaison_Signature` varchar(80) DEFAULT NULL,
   `Dean_Signature` varchar(80) DEFAULT NULL,
@@ -77,31 +120,12 @@ CREATE TABLE `applications` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `applications`
+-- Dumping data for table `applications_status`
 --
 
-INSERT INTO `applications` (`Application_ID`, `Student_Name`, `Student_ID`, `Student_Address`, `Student_City`, `Student_State`, `Student_Zip_Code`, `Student_Home_Phone`, `Student_Work_Phone`, `Metrostate_Advisor`, `Student_Email`, `Company_Name`, `Company_Email`, `Company_Address`, `Company_City`, `Company_State`, `Company_Zip_Code`, `Site_Supervisor_Name`, `Site_Supervisor_Phone`, `Site_Supervisor_Email`, `Internship_Evaluator_Name`, `Internship_Evaluator_Phone`, `Internship_Evaluator_Email`, `Internship_Evaluator_Resume`, `Internship_Title`, `Academic_Focus`, `Graduate_Or_Undergraduate`, `Grading_Scale`, `Requested_Credits`, `College`, `Academic_Major`, `Academic_Minor`, `Start_Date`, `End_Date`, `Hours_Per_Week`, `Compensation`, `Competence_Statement`, `Learning_Strategy`, `Evaluation`, `Student_Signature`, `Employer_Signature`, `Faculty_Liaison_Signature`, `Dean_Signature`, `Internship_Coordinator_Signature`, `Application_Status`) VALUES
-(1, 'Prechar Xiong', 12345678, '10 Something Street', 'Saint Paul', 'MN', 55130, '123-456-7890', '123-456-7890', 'That One Guy', 'wp1080lt@go.minnstate.edu', 'CBRE', 'CBRE@gmail.com', '1020 Oakdale Drive', 'Oakdale', 'MN', 55140, 'Thomas Anderson', '987-654-3210', 'tanderson@gmail.com', 'George Washington', '111-222-3333', 'gwashington@gmail.com', 'uploads/5e843e2dd0eab5.21204701.docx', 'Software Engineer Intern', 'Computer Science', 'Undergraduate', 'Letter Grade', 4, 'College of Sciences', 'Computer Science', 'Mathematics', '2020-04-20', '2020-08-20', 30, 'Wages', 'I like turtles! I like turtles! I like turtles! I like \r\nturtles! I like turtles! I like turtles! I like turtles! I \r\nlike turtles! I like turtles!', 'I like turtles! I like turtles! I like turtles! I like \r\nturtles! I like turtles! I like turtles! I like turtles! I \r\nlike turtles! I like turtles!', 'I like turtles! I like turtles! I like turtles! I like \r\nturtles! I like turtles! I like turtles! I like turtles! I \r\nlike turtles! I like turtles!', 'Prechar Xiong', 'craig nelson', 'craig nelson', 'craig nelson', 'craig nelson', 'Approved'),
-(2, 'Guy Niche', 98745610, 'Somewhere Street', 'Saint Paul', 'MN', 55130, '444-333-2222', '444-333-2222', 'That Guy There', 'myschoolemail@go.minnstate.edu', '3M', '3M@gmail.com', '1020 Oakdale Drive', 'Oakdale', 'MN', 55140, 'Thomas Anderson', '987-654-3210', 'someone@gmail.com', 'George Abraham', '444-333-2221', 'gabraham@gmail.com', 'uploads/5e8444c7319801.18397339.pdf', 'Software Engineer Intern', 'Computer Science', 'Graduate', 'S/N', 3, 'College of Sciences', 'Computer Science', 'Mathematics', '2020-04-20', '2020-08-20', 30, 'Stipend', 'I like sleeping! I like sleeping! I like sleeping! I like \r\nsleeping! I like sleeping! I like sleeping! I like sleeping!', 'I like sleeping! I like sleeping! I like sleeping! I like \r\nsleeping! I like sleeping! I like sleeping! I like sleeping!', 'I like sleeping! I like sleeping! I like sleeping! I like \r\nsleeping! I like sleeping! I like sleeping! I like sleeping!', 'Guy Niche', NULL, NULL, NULL, NULL, 'in progress');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `employers`
---
-
-CREATE TABLE `employers` (
-  `User_Name` varchar(20) NOT NULL,
-  `Company_Name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `employers`
---
-
-INSERT INTO `employers` (`User_Name`, `Company_Name`) VALUES
-('employer101', 'CBRE'),
-('pxiong037', '3M');
+INSERT INTO `applications_status` (`Application_ID`, `Student_Signature`, `Employer_Signature`, `Faculty_Liaison_Signature`, `Dean_Signature`, `Internship_Coordinator_Signature`, `Application_Status`) VALUES
+(1, 'Bro Dude', NULL, NULL, 'Approve', NULL, 'In Progress'),
+(2, 'Bro Dude', 'Approve', 'Approve', 'Approve', 'Approve', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -110,7 +134,7 @@ INSERT INTO `employers` (`User_Name`, `Company_Name`) VALUES
 --
 
 CREATE TABLE `students` (
-  `User_Name` varchar(20) NOT NULL,
+  `User_ID` int(11) NOT NULL,
   `Student_ID` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -118,44 +142,10 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`User_Name`, `Student_ID`) VALUES
-('dude', 12345678),
-('student101', 98745610);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `upload`
---
-
-CREATE TABLE `upload` (
-  `id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL,
-  `type` varchar(30) NOT NULL,
-  `size` int(11) NOT NULL,
-  `content` varchar(1000) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `upload`
---
-
-INSERT INTO `upload` (`id`, `name`, `type`, `size`, `content`) VALUES
-(49, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c8e4d9a7e0.39598137.pdf'),
-(50, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c90c5fc8c7.30437427.pdf'),
-(51, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c9380d8973.24780259.pdf'),
-(52, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83c952275211.48599278.pdf'),
-(53, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83ca440e4212.14407645.pdf'),
-(54, 'testingupload.pdf', 'application/pdf', 34159, 'uploads/5e83caa2cef8b8.15066115.pdf'),
-(55, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e8439267e1800.91619204.docx'),
-(56, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843d0a542025.11084001.docx'),
-(57, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843d807fd506.11843061.docx'),
-(58, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843dad357513.18515590.docx'),
-(59, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e843e2dd0eab5.21204701.docx'),
-(60, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e84443b254215.69398772.docx'),
-(61, 'Internship Evaluation Resume.docx', 'application/vnd.openxmlformats', 11666, 'uploads/5e84446ce419d9.34500749.docx'),
-(62, 'Internship Evaluation Resume.pdf', 'application/pdf', 188529, 'uploads/5e8444a92b2ff2.94454356.pdf'),
-(63, 'Internship Evaluation Resume.pdf', 'application/pdf', 188529, 'uploads/5e8444c7319801.18397339.pdf');
+INSERT INTO `students` (`User_ID`, `Student_ID`) VALUES
+(13, 87654321),
+(18, 12345678),
+(19, 33334444);
 
 -- --------------------------------------------------------
 
@@ -164,12 +154,13 @@ INSERT INTO `upload` (`id`, `name`, `type`, `size`, `content`) VALUES
 --
 
 CREATE TABLE `users` (
+  `User_ID` int(11) NOT NULL,
   `User_Type` varchar(50) NOT NULL,
   `User_Name` varchar(20) NOT NULL,
-  `Password` varchar(50) NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  `First_Name` varchar(20) NOT NULL,
-  `Last_Name` varchar(20) NOT NULL,
+  `Password` varchar(100) NOT NULL,
+  `Email` varchar(80) NOT NULL,
+  `First_Name` varchar(30) NOT NULL,
+  `Last_Name` varchar(30) NOT NULL,
   `Created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -177,15 +168,16 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`User_Type`, `User_Name`, `Password`, `Email`, `First_Name`, `Last_Name`, `Created`) VALUES
-('Admin', 'admin', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin@gmail.com', 'Admin', 'Guy', '2020-03-31'),
-('Internship Coordinator', 'coordinator101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'internshipcoordinator@gmail.com', 'Craig', 'Kerska', '2020-03-31'),
-('Dean', 'dean101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'dean@gmail.com', 'Bob', 'Anderson', '2020-03-31'),
-('Student', 'dude', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'dude@gmail.com', 'Prechar', 'Xiong', '2020-03-31'),
-('Employer', 'employer101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'employer@gmail.com', 'Billy', 'Jean', '2020-04-01'),
-('Faculty Liaison', 'faculty101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'facultyliaison@gmail.com', 'Rob', 'Nelson', '2020-03-31'),
-('Employer', 'pxiong037', '7c4a8d09ca3762af61e59520943dc26494f8941b', '3M@gmail.com', 'Jackie', 'Chan', '2020-04-01'),
-('Student', 'student101', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'student101@gmail.com', 'Guy', 'Niche', '2020-04-01');
+INSERT INTO `users` (`User_ID`, `User_Type`, `User_Name`, `Password`, `Email`, `First_Name`, `Last_Name`, `Created`) VALUES
+(1, 'Admin', 'admin', '$2y$10$oMdpnIofYF.Hcd4cqIq0pu61nbNt9tXni6XxH8wfU74qoVqzUZXT.', 'admin@gmail.com', 'Prechar', 'Xiong', '2020-04-10'),
+(13, 'Student', 'student102', '$2y$10$2YZLXUrzjgDMsC1FX3rl2.hp2oane5eceX0hNLv5i.5BOnKG1RAmi', 'student102@gmail.com', 'Bro', 'Dude', '2020-04-13'),
+(14, 'Employer', 'employer101', '$2y$10$e/Crw60Fz3xYyFTwz9J5LuSQXhDZzZXXXeOS56q93uufwZExq.j1W', 'employer@gmail.com', 'Jack', 'Daniels', '2020-04-13'),
+(15, 'Dean', 'dean101', '$2y$10$JFvooMs69RyyVl4dC6NiwutEgjeexuxbbHXbydkFJICCROUS.etgK', 'dean@gmail.com', 'Alvin', 'Chimp', '2020-04-13'),
+(16, 'FacultyLiaison', 'faculty101', '$2y$10$Jg094KF6mtSAFgHfYp2sEeVoYTczkbbVvtsGBw83O1fFRx9K5oWiu', 'facultyliaison@gmail.com', 'Robert', 'Peterson', '2020-04-13'),
+(17, 'InternshipCoordinator', 'coordinator101', '$2y$10$0BS8icwI9odOLkarOil8f.zU1Tqimw2S9ODaLikhbmpsvWyEUdwmC', 'coordinator@gmail.com', 'Ryan', 'Luck', '2020-04-13'),
+(18, 'Student', 'pxiong037', '$2y$10$rewPfSVlZbFU.RzzLsNiSuta7MVMmiHhBEl4Eul8a3DmkXUmcEIHO', 'ab1234cd@go.minnstate.edu', 'Prechar', 'Xiong', '2020-04-15'),
+(19, 'Student', 'dude', '$2y$10$Qk9/2yaDuJ46iJ.Y0QlV2eWNhfhtok9SO.tAYI0HeIob/v65US4Pq', '12abcd34@go.metrostate.edu', 'Nancy', 'Lee', '2020-04-20'),
+(20, 'Employer', 'employer111', '$2y$10$dtzRGzSse9rLm53Ohpd/5.1XL6YCnr7BCHQ8hxF/ZxwewwJe3g/8W', 'employer111@gmail.com', 'Julie', 'Roberts', '2020-04-20');
 
 --
 -- Indexes for dumped tables
@@ -196,67 +188,72 @@ INSERT INTO `users` (`User_Type`, `User_Name`, `Password`, `Email`, `First_Name`
 --
 ALTER TABLE `applications`
   ADD PRIMARY KEY (`Application_ID`),
-  ADD KEY `comp_name` (`Company_Name`),
   ADD KEY `student_id` (`Student_ID`);
 
 --
--- Indexes for table `employers`
+-- Indexes for table `applications_comments`
 --
-ALTER TABLE `employers`
-  ADD PRIMARY KEY (`Company_Name`),
-  ADD KEY `Employers_User_Name` (`User_Name`);
+ALTER TABLE `applications_comments`
+  ADD KEY `Comments_User_ID` (`User_ID`),
+  ADD KEY `Comments_Applcation_ID` (`Application_ID`);
+
+--
+-- Indexes for table `applications_status`
+--
+ALTER TABLE `applications_status`
+  ADD KEY `Status_Applications_ID` (`Application_ID`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`Student_ID`),
-  ADD KEY `Students_User_Name` (`User_Name`);
-
---
--- Indexes for table `upload`
---
-ALTER TABLE `upload`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `Students_User_ID` (`User_ID`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`User_Name`);
+  ADD PRIMARY KEY (`User_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `upload`
+-- AUTO_INCREMENT for table `applications`
 --
-ALTER TABLE `upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+ALTER TABLE `applications`
+  MODIFY `Application_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `applications`
+-- Constraints for table `applications_comments`
 --
-ALTER TABLE `applications`
-  ADD CONSTRAINT `comp_name` FOREIGN KEY (`Company_Name`) REFERENCES `employers` (`Company_Name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `student_id` FOREIGN KEY (`Student_ID`) REFERENCES `students` (`Student_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `applications_comments`
+  ADD CONSTRAINT `Comments_Applcation_ID` FOREIGN KEY (`Application_ID`) REFERENCES `applications` (`Application_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Comments_User_ID` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `employers`
+-- Constraints for table `applications_status`
 --
-ALTER TABLE `employers`
-  ADD CONSTRAINT `Employers_User_Name` FOREIGN KEY (`User_Name`) REFERENCES `users` (`User_Name`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `applications_status`
+  ADD CONSTRAINT `Status_Applications_ID` FOREIGN KEY (`Application_ID`) REFERENCES `applications` (`Application_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `students`
 --
 ALTER TABLE `students`
-  ADD CONSTRAINT `Students_User_Name` FOREIGN KEY (`User_Name`) REFERENCES `users` (`User_Name`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Students_User_ID` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
