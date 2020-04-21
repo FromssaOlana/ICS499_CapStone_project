@@ -893,6 +893,7 @@ class Users extends Controller
 
   public function editApplication($application_id){
     $data = $this->getApplicationToEdit($application_id);
+    $data['application_id'] = $application_id;
     if ($this->isLoggedInStudent()){
       $this->view('users/editapplication',$data);
     } else{
@@ -1122,7 +1123,10 @@ class Users extends Controller
       $data[$user_type_to_data_type[$user->User_Type]] = $a_comment->Comment;
     }
 
-    $data['user_comment'] = $data[$user_type_to_data_type[$_SESSION['user_type']]];
+
+    if($_SESSION['user_type'] != 'Student'){
+      $data['user_comment'] = $data[$user_type_to_data_type[$_SESSION['user_type']]];
+    }
 
     return $data;
   }
