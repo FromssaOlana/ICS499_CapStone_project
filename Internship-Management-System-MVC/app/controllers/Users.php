@@ -269,6 +269,7 @@ class Users extends Controller
         $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
         $data = [
+          'application_id' => $application_id,
           'student_name' => trim($_POST['student_name']),
           'student_ID' => trim($_POST['student_ID']),
           'student_address' => trim($_POST['student_address']),
@@ -517,17 +518,24 @@ class Users extends Controller
           $fileActualExt = strtolower(end($fileExt));
           $allowed = array('pdf', 'doc', 'docx');
 
+          $phpFileUploadErrors = array(
+            0 => 'There is no error, the file uploaded with success',
+            1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+            2 => 'The uploaded file exceeds the MAX_FILE_SIZE of 5 MB',
+            3 => 'The uploaded file was only partially uploaded',
+            4 => 'No file was uploaded',
+            6 => 'Missing a temporary folder',
+            7 => 'Failed to write file to disk.',
+            8 => 'A PHP extension stopped the file upload.',
+        );
+
           if (in_array($fileActualExt, $allowed)) {
             if ($fileError === 0) {
-              if ($fileSize < 10000000) {
-                $fileNameNew = sha1_file($_FILES['internship_evaluator_resume']['tmp_name']) . "." . $fileActualExt;
-                $fileDestination = '../app/uploads/'.$fileNameNew;
-                $data['internship_evaluator_resume'] = $fileDestination;
-              } else {
-                $data['internship_evaluator_resume_err'] = "Your file was too big.";
-              }
+              $fileNameNew = sha1_file($_FILES['internship_evaluator_resume']['tmp_name']) . $_SESSION['student_id'] . "." . $fileActualExt;
+              $fileDestination = '../app/uploads/'.$fileNameNew;
+              $data['internship_evaluator_resume'] = $fileDestination;
             } else {
-              $data['internship_evaluator_resume_err'] = "There was an error uploading your file.";
+              $data['internship_evaluator_resume_err'] = $phpFileUploadErrors[$fileError];
             }
           } else {
             $data['internship_evaluator_resume_err'] = "Please upload a valid resume in PDF, DOC, or DOCX format.";
@@ -692,7 +700,7 @@ class Users extends Controller
           // SUCCESS - Proceed to insert
 
           //Execute
-          if($application_id == -1){
+          if($data['application_id'] == -1){
             if($this->userModel->findApplication($data['student_ID'], $data['company_email'])){
               echo "<script type='text/javascript'>alert('This account currently has an application associated with this company!');</script>";
               // Load View
@@ -709,20 +717,18 @@ class Users extends Controller
               }
             }
           } else{
+            $application = $this->userModel->getApplicationByApplicationID($application_id);
 
-            $data['application_id'] = $application_id;
+            if($application->Internship_Evaluator_Resume != $data['internship_evaluator_resume']){
+              move_uploaded_file($tmpName, $fileDestination);
+            }
+            
             $data['submitted'] = date('m/d/y');
             $data['submitted'] = date("Y-m-d H:i:s",strtotime($data['submitted']));
             $data['start_date'] = date("Y-m-d H:i:s",strtotime($data['start_date']));
             $data['end_date'] = date("Y-m-d H:i:s",strtotime($data['end_date']));
 
             $this->userModel->editApplication($data);
-
-            $application = $this->userModel->getApplicationByApplicationID($application_id);
-
-            if($application->Internship_Evaluator_Resume != $fileDestination){
-              move_uploaded_file($tmpName, $fileDestination);
-            }
               
             echo "<script type='text/javascript'>alert('Your application has been edited and can now be reviewed');</script>";
             flash('application_submitted', 'Your application has been submitted and can now be reviewed.');
@@ -812,6 +818,7 @@ class Users extends Controller
           'learning_strategy_err' => '',
           'evaluation_err' => '',
           'student_signature_err' => '',
+          'application_id' => -1,
         ];
         // Load View
         $this->view('users/application', $data);
@@ -832,15 +839,24 @@ class Users extends Controller
 
   public function viewApplication($application_id){
     if ($this->isLoggedIn()) {
-      $data = $this->getApplicationData($application_id);
-      $this->view('users/viewapplication',$data);
+      if($this->isLoggedInStudent()){
+        if($this->userModel->findApplicationByStudentIDAndApplicationID($_SESSION['student_id'], $application_id)){
+          $data = $this->getApplicationData($application_id);
+          $this->view('users/viewapplication',$data);
+        } else{
+          redirect('users/login');
+        }
+      } else{
+        $data = $this->getApplicationData($application_id);
+        $this->view('users/viewapplication',$data);
+      }
     } else {
       redirect('users/login');
     }
   }
 
   public function postComment($application_id){
-    if ($this->isLoggedIn()) {
+    if ($this->isLoggedIn() && !$this->isLoggedInStudent()) {
       $data = $this->getApplicationData($application_id);
       // Check if POST
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -868,11 +884,10 @@ class Users extends Controller
   }
 
   public function deleteApplication($application_id){
-    $data = [
-      'application_id' => $application_id,
-    ];
-
-    if ($this->isLoggedInStudent()){
+    if ($this->isLoggedInStudent() && $this->userModel->findApplicationByStudentIDAndApplicationID($_SESSION['student_id'], $application_id)){
+      $data = [
+        'application_id' => $application_id,
+      ];
       $this->view('users/deleteapplication',$data);
     } else{
       redirect('users/login');
@@ -880,7 +895,7 @@ class Users extends Controller
   }
 
   public function deleteApplicationConfirmation($application_id){
-    if ($this->isLoggedInStudent()){
+    if ($this->isLoggedInStudent() && $this->userModel->findApplicationByStudentIDAndApplicationID($_SESSION['student_id'], $application_id)){
       if($this->userModel->deleteApplication($application_id,$_SESSION['student_id'])){
         redirect('users/manageApplications');
       } else{
@@ -892,17 +907,17 @@ class Users extends Controller
   }
 
   public function editApplication($application_id){
-    $data = $this->getApplicationToEdit($application_id);
-    $data['application_id'] = $application_id;
-    if ($this->isLoggedInStudent()){
-      $this->view('users/editapplication',$data);
+    if ($this->isLoggedInStudent() && $this->userModel->findApplicationByStudentIDAndApplicationID($_SESSION['student_id'], $application_id)) {
+      $data = $this->getApplicationToEdit($application_id);
+      $data['application_id'] = $application_id;
+      $this->view('users/application',$data);
     } else{
       redirect('users/login');
     }
   }
 
   public function signApplication($application_id){
-    if ($this->isLoggedIn()) {
+    if ($this->isLoggedIn() && !$this->isLoggedInStudent()) {
       $data = $this->getApplicationData($application_id);
       // Check if POST
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -938,197 +953,205 @@ class Users extends Controller
   }
 
   public function getApplicationToEdit($application_id){
-    $row = $this->userModel->getApplicationByApplicationID($application_id);
-    $start_date_string = strtotime($row->Start_Date);
-    $end_date_string = strtotime($row->End_Date);
-    $format_start_date = date("m/d/y", $start_date_string);  
-    $format_end_date = date("m/d/y", $end_date_string);  
+    if ($this->isLoggedInStudent() && $this->userModel->findApplicationByStudentIDAndApplicationID($_SESSION['student_id'], $application_id)) {
+      $row = $this->userModel->getApplicationByApplicationID($application_id);
+      $start_date_string = strtotime($row->Start_Date);
+      $end_date_string = strtotime($row->End_Date);
+      $format_start_date = date("m/d/y", $start_date_string);  
+      $format_end_date = date("m/d/y", $end_date_string);  
 
-    $data = [
-      'application_id' => $row->Application_ID,
-      'student_name' => $row->Student_Name,
-      'student_ID' => $row->Student_ID,
-      'student_address' => $row->Student_Address,
-      'student_city' => $row->Student_City,
-      'student_state' => $row->Student_State,
-      'student_zip_code' => $row->Student_Zip_Code,
-      'student_home_phone' => $row->Student_Home_Phone,
-      'student_work_phone' => $row->Student_Work_Phone,
-      'metrostate_advisor' => $row->Metrostate_Advisor,
-      'student_email' => $row->Student_Email,
-      'company_name' => $row->Company_Name,
-      'company_email' => $row->Company_Email,
-      'company_address' => $row->Company_Address,
-      'company_city' => $row->Company_City,
-      'company_state' => $row->Company_State,
-      'company_zip_code' => $row->Company_Zip_Code,
-      'site_supervisor_name' => $row->Site_Supervisor_Name,
-      'site_supervisor_phone' => $row->Site_Supervisor_Phone,
-      'site_supervisor_email' => $row->Site_Supervisor_Email,
-      'internship_evaluator_name' => $row->Internship_Evaluator_Name,
-      'internship_evaluator_phone' => $row->Internship_Evaluator_Phone,
-      'internship_evaluator_email' => $row->Internship_Evaluator_Email,
-      'internship_evaluator_resume' => $row->Internship_Evaluator_Resume,
-      'internship_title' => $row->Internship_Title,
-      'academic_focus' => $row->Academic_Focus,
-      'graduate_or_undergraduate' => $row->Graduate_Or_Undergraduate,
-      'grading_scale' => $row->Grading_Scale,
-      'requested_credits' => $row->Requested_Credits,
-      'college' => $row->College,
-      'academic_major' => $row->Academic_Major,
-      'academic_minor' => $row->Academic_Minor,
-      'start_date' => $format_start_date,
-      'end_date' => $format_end_date,
-      'hours_per_week' => $row->Hours_Per_Week,
-      'compensation' => $row->Compensation,
-      'competence_statement' => $row->Competence_Statement,
-      'learning_strategy' => $row->Learning_Strategy,
-      'evaluation' => $row->Evaluation,
-      'submitted' => $row->Submitted,
-      'student_signature' => '',
-      'student_name_err' => '',
-      'student_ID_err' => '',
-      'student_address_err' => '',
-      'student_city_err' => '',
-      'student_state_err' => '',
-      'student_zip_code_err' => '',
-      'student_home_phone_err' => '',
-      'student_work_phone_err' => '',
-      'metrostate_advisor_err' => '',
-      'student_email_err' => '',
-      'company_name_err' => '',
-      'company_email_err' => '',
-      'company_address_err' => '',
-      'company_city_err' => '',
-      'company_state_err' => '',
-      'company_zip_code_err' => '',
-      'site_supervisor_name_err' => '',
-      'site_supervisor_phone_err' => '',
-      'site_supervisor_email_err' => '',
-      'internship_evaluator_name_err' => '',
-      'internship_evaluator_phone_err' => '',
-      'internship_evaluator_email_err' => '',
-      'internship_evaluator_resume_err' => '',
-      'internship_title_err' => '',
-      'academic_focus_err' => '',
-      'graduate_or_undergraduate_err' => '',
-      'grading_scale_err' => '',
-      'requested_credits_err' => '',
-      'college_err' => '',
-      'academic_major_err' => '',
-      'academic_minor_err' => '',
-      'start_date_err' => '',
-      'end_date_err' => '',
-      'hours_per_week_err' => '',
-      'compensation_err' => '',
-      'competence_statement_err' => '',
-      'learning_strategy_err' => '',
-      'evaluation_err' => '',
-      'student_signature_err' => '',
-    ];
+      $data = [
+        'application_id' => $row->Application_ID,
+        'student_name' => $row->Student_Name,
+        'student_ID' => $row->Student_ID,
+        'student_address' => $row->Student_Address,
+        'student_city' => $row->Student_City,
+        'student_state' => $row->Student_State,
+        'student_zip_code' => $row->Student_Zip_Code,
+        'student_home_phone' => $row->Student_Home_Phone,
+        'student_work_phone' => $row->Student_Work_Phone,
+        'metrostate_advisor' => $row->Metrostate_Advisor,
+        'student_email' => $row->Student_Email,
+        'company_name' => $row->Company_Name,
+        'company_email' => $row->Company_Email,
+        'company_address' => $row->Company_Address,
+        'company_city' => $row->Company_City,
+        'company_state' => $row->Company_State,
+        'company_zip_code' => $row->Company_Zip_Code,
+        'site_supervisor_name' => $row->Site_Supervisor_Name,
+        'site_supervisor_phone' => $row->Site_Supervisor_Phone,
+        'site_supervisor_email' => $row->Site_Supervisor_Email,
+        'internship_evaluator_name' => $row->Internship_Evaluator_Name,
+        'internship_evaluator_phone' => $row->Internship_Evaluator_Phone,
+        'internship_evaluator_email' => $row->Internship_Evaluator_Email,
+        'internship_evaluator_resume' => $row->Internship_Evaluator_Resume,
+        'internship_title' => $row->Internship_Title,
+        'academic_focus' => $row->Academic_Focus,
+        'graduate_or_undergraduate' => $row->Graduate_Or_Undergraduate,
+        'grading_scale' => $row->Grading_Scale,
+        'requested_credits' => $row->Requested_Credits,
+        'college' => $row->College,
+        'academic_major' => $row->Academic_Major,
+        'academic_minor' => $row->Academic_Minor,
+        'start_date' => $format_start_date,
+        'end_date' => $format_end_date,
+        'hours_per_week' => $row->Hours_Per_Week,
+        'compensation' => $row->Compensation,
+        'competence_statement' => $row->Competence_Statement,
+        'learning_strategy' => $row->Learning_Strategy,
+        'evaluation' => $row->Evaluation,
+        'submitted' => $row->Submitted,
+        'student_signature' => '',
+        'student_name_err' => '',
+        'student_ID_err' => '',
+        'student_address_err' => '',
+        'student_city_err' => '',
+        'student_state_err' => '',
+        'student_zip_code_err' => '',
+        'student_home_phone_err' => '',
+        'student_work_phone_err' => '',
+        'metrostate_advisor_err' => '',
+        'student_email_err' => '',
+        'company_name_err' => '',
+        'company_email_err' => '',
+        'company_address_err' => '',
+        'company_city_err' => '',
+        'company_state_err' => '',
+        'company_zip_code_err' => '',
+        'site_supervisor_name_err' => '',
+        'site_supervisor_phone_err' => '',
+        'site_supervisor_email_err' => '',
+        'internship_evaluator_name_err' => '',
+        'internship_evaluator_phone_err' => '',
+        'internship_evaluator_email_err' => '',
+        'internship_evaluator_resume_err' => '',
+        'internship_title_err' => '',
+        'academic_focus_err' => '',
+        'graduate_or_undergraduate_err' => '',
+        'grading_scale_err' => '',
+        'requested_credits_err' => '',
+        'college_err' => '',
+        'academic_major_err' => '',
+        'academic_minor_err' => '',
+        'start_date_err' => '',
+        'end_date_err' => '',
+        'hours_per_week_err' => '',
+        'compensation_err' => '',
+        'competence_statement_err' => '',
+        'learning_strategy_err' => '',
+        'evaluation_err' => '',
+        'student_signature_err' => '',
+      ];
 
     return $data;
+    } else {
+      redirect('users/login');
+    }
   }
 
   public function getApplicationData($application_id){
-    $row = $this->userModel->getApplicationByApplicationID($application_id);
-    $status = $this->userModel->getApplicationStatus($application_id);
-    $comments = $this->userModel->getApplicationsComments($application_id);
-    
-    $data = [
-      'application_id' => $row->Application_ID,
-      'student_name' => $row->Student_Name,
-      'student_ID' => $row->Student_ID,
-      'student_address' => $row->Student_Address,
-      'student_city' => $row->Student_City,
-      'student_state' => $row->Student_State,
-      'student_zip_code' => $row->Student_Zip_Code,
-      'student_home_phone' => $row->Student_Home_Phone,
-      'student_work_phone' => $row->Student_Work_Phone,
-      'metrostate_advisor' => $row->Metrostate_Advisor,
-      'student_email' => $row->Student_Email,
-      'company_name' => $row->Company_Name,
-      'company_email' => $row->Company_Email,
-      'company_address' => $row->Company_Address,
-      'company_city' => $row->Company_City,
-      'company_state' => $row->Company_State,
-      'company_zip_code' => $row->Company_Zip_Code,
-      'site_supervisor_name' => $row->Site_Supervisor_Name,
-      'site_supervisor_phone' => $row->Site_Supervisor_Phone,
-      'site_supervisor_email' => $row->Site_Supervisor_Email,
-      'internship_evaluator_name' => $row->Internship_Evaluator_Name,
-      'internship_evaluator_phone' => $row->Internship_Evaluator_Phone,
-      'internship_evaluator_email' => $row->Internship_Evaluator_Email,
-      'internship_evaluator_resume' => $row->Internship_Evaluator_Resume,
-      'internship_title' => $row->Internship_Title,
-      'academic_focus' => $row->Academic_Focus,
-      'graduate_or_undergraduate' => $row->Graduate_Or_Undergraduate,
-      'grading_scale' => $row->Grading_Scale,
-      'requested_credits' => $row->Requested_Credits,
-      'college' => $row->College,
-      'academic_major' => $row->Academic_Major,
-      'academic_minor' => $row->Academic_Minor,
-      'start_date' => $row->Start_Date,
-      'end_date' => $row->End_Date,
-      'hours_per_week' => $row->Hours_Per_Week,
-      'compensation' => $row->Compensation,
-      'competence_statement' => $row->Competence_Statement,
-      'learning_strategy' => $row->Learning_Strategy,
-      'evaluation' => $row->Evaluation,
-      'submitted' => $row->Submitted,
-      'student_signature' => $status->Student_Signature,
-      'employer_signature' => $status->Employer_Signature,
-      'faculty_liaison_signature' => $status->Faculty_Liaison_Signature,
-      'dean_signature' => $status->Dean_Signature,
-      'internship_coordinator_signature' => $status->Internship_Coordinator_Signature,
-      'application_status' => $status->Application_Status,
-      'signature_err' => '',
-      'signature' => '',
-      'approve_or_decline' => '',
-      'approve_or_decline_err' => '',
-      'employer_comments' => '',
-      'dean_comments' => '',
-      'faculty_liaison_comments' => '',
-      'internship_coordinator_comments' => '',
-    ];
+    if ($this->isLoggedIn()) {
+      $row = $this->userModel->getApplicationByApplicationID($application_id);
+      $status = $this->userModel->getApplicationStatus($application_id);
+      $comments = $this->userModel->getApplicationsComments($application_id);
+      
+      $data = [
+        'application_id' => $row->Application_ID,
+        'student_name' => $row->Student_Name,
+        'student_ID' => $row->Student_ID,
+        'student_address' => $row->Student_Address,
+        'student_city' => $row->Student_City,
+        'student_state' => $row->Student_State,
+        'student_zip_code' => $row->Student_Zip_Code,
+        'student_home_phone' => $row->Student_Home_Phone,
+        'student_work_phone' => $row->Student_Work_Phone,
+        'metrostate_advisor' => $row->Metrostate_Advisor,
+        'student_email' => $row->Student_Email,
+        'company_name' => $row->Company_Name,
+        'company_email' => $row->Company_Email,
+        'company_address' => $row->Company_Address,
+        'company_city' => $row->Company_City,
+        'company_state' => $row->Company_State,
+        'company_zip_code' => $row->Company_Zip_Code,
+        'site_supervisor_name' => $row->Site_Supervisor_Name,
+        'site_supervisor_phone' => $row->Site_Supervisor_Phone,
+        'site_supervisor_email' => $row->Site_Supervisor_Email,
+        'internship_evaluator_name' => $row->Internship_Evaluator_Name,
+        'internship_evaluator_phone' => $row->Internship_Evaluator_Phone,
+        'internship_evaluator_email' => $row->Internship_Evaluator_Email,
+        'internship_evaluator_resume' => $row->Internship_Evaluator_Resume,
+        'internship_title' => $row->Internship_Title,
+        'academic_focus' => $row->Academic_Focus,
+        'graduate_or_undergraduate' => $row->Graduate_Or_Undergraduate,
+        'grading_scale' => $row->Grading_Scale,
+        'requested_credits' => $row->Requested_Credits,
+        'college' => $row->College,
+        'academic_major' => $row->Academic_Major,
+        'academic_minor' => $row->Academic_Minor,
+        'start_date' => $row->Start_Date,
+        'end_date' => $row->End_Date,
+        'hours_per_week' => $row->Hours_Per_Week,
+        'compensation' => $row->Compensation,
+        'competence_statement' => $row->Competence_Statement,
+        'learning_strategy' => $row->Learning_Strategy,
+        'evaluation' => $row->Evaluation,
+        'submitted' => $row->Submitted,
+        'student_signature' => $status->Student_Signature,
+        'employer_signature' => $status->Employer_Signature,
+        'faculty_liaison_signature' => $status->Faculty_Liaison_Signature,
+        'dean_signature' => $status->Dean_Signature,
+        'internship_coordinator_signature' => $status->Internship_Coordinator_Signature,
+        'application_status' => $status->Application_Status,
+        'signature_err' => '',
+        'signature' => '',
+        'approve_or_decline' => '',
+        'approve_or_decline_err' => '',
+        'employer_comments' => '',
+        'dean_comments' => '',
+        'faculty_liaison_comments' => '',
+        'internship_coordinator_comments' => '',
+      ];
 
-    $user_signature_types = [
-      'Employer' => 'employer_signature',
-      'Dean' => 'dean_signature',
-      'FacultyLiaison' => 'faculty_liaison_signature',
-      'InternshipCoordinator' => 'internship_coordinator_signature',
-    ];
+      $user_signature_types = [
+        'Employer' => 'employer_signature',
+        'Dean' => 'dean_signature',
+        'FacultyLiaison' => 'faculty_liaison_signature',
+        'InternshipCoordinator' => 'internship_coordinator_signature',
+      ];
 
-    $written_signature_types = [
-      'Employer' => 'Employer Signature',
-      'Dean' => 'Dean Signature',
-      'FacultyLiaison' => 'Faculty Liaison Signature',
-      'InternshipCoordinator' => 'Internship Coordinator Signature',
-    ];
-    
-    if($_SESSION['user_type'] != 'Student'){
-      $data['string_user_type'] = $user_signature_types[$_SESSION['user_type']];
-      $data['user_type_signature'] = $written_signature_types[$_SESSION['user_type']];
+      $written_signature_types = [
+        'Employer' => 'Employer Signature',
+        'Dean' => 'Dean Signature',
+        'FacultyLiaison' => 'Faculty Liaison Signature',
+        'InternshipCoordinator' => 'Internship Coordinator Signature',
+      ];
+      
+      if($_SESSION['user_type'] != 'Student'){
+        $data['string_user_type'] = $user_signature_types[$_SESSION['user_type']];
+        $data['user_type_signature'] = $written_signature_types[$_SESSION['user_type']];
+      }
+
+      $user_type_to_data_type = [
+        'Employer' => 'employer_comments',
+        'Dean' => 'dean_comments',
+        'FacultyLiaison' => 'faculty_liaison_comments',
+        'InternshipCoordinator' => 'internship_coordinator_comments',
+      ];
+
+      foreach($comments as $a_comment){
+        $user = $this->userModel->getUserByUserID($a_comment->User_ID);
+        $data[$user_type_to_data_type[$user->User_Type]] = $a_comment->Comment;
+      }
+
+
+      if($_SESSION['user_type'] != 'Student'){
+        $data['user_comment'] = $data[$user_type_to_data_type[$_SESSION['user_type']]];
+      }
+
+      return $data;
+    } else {
+      redirect('users/login');
     }
-
-    $user_type_to_data_type = [
-      'Employer' => 'employer_comments',
-      'Dean' => 'dean_comments',
-      'FacultyLiaison' => 'faculty_liaison_comments',
-      'InternshipCoordinator' => 'internship_coordinator_comments',
-    ];
-
-    foreach($comments as $a_comment){
-      $user = $this->userModel->getUserByUserID($a_comment->User_ID);
-      $data[$user_type_to_data_type[$user->User_Type]] = $a_comment->Comment;
-    }
-
-
-    if($_SESSION['user_type'] != 'Student'){
-      $data['user_comment'] = $data[$user_type_to_data_type[$_SESSION['user_type']]];
-    }
-
-    return $data;
   }
 
   public function viewUser()
@@ -1150,8 +1173,12 @@ class Users extends Controller
   }
 
   public function viewEvaluatorResume($application_id){
-    $data = $this->getApplicationData($application_id);
-    $this->returnUploaded($data['internship_evaluator_resume']);
+    if ($this->isLoggedIn()) {
+      $data = $this->getApplicationData($application_id);
+      $this->returnUploaded($data['internship_evaluator_resume']);
+    } else {
+      redirect('users/login');
+    }
   }
 
   
@@ -1199,7 +1226,7 @@ class Users extends Controller
           $this->createUserSession($loggedInUser);
           redirect('users/viewUser');
         } else {
-          $data['user_name_err'] = 'Username does not exist.';
+          $data['password_err'] = 'Wrong password entered.';
           // Load View
           $this->view('users/login', $data);
         }

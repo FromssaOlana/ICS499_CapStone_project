@@ -1,0 +1,170 @@
+
+
+#container{
+    margin: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+#container table{
+    word-wrap: break-word;
+    margin-left: auto;
+    margin-right: auto;
+    width:38rem;
+}
+
+.button {
+	text-align: center;
+	cursor: pointer;
+	padding: .4rem 1.2rem;
+	background-color:  rgb(1, 1, 63);
+	border: solid black 1px;
+	color: white;
+  margin-top: .5rem;
+}
+
+textarea{
+  margin-top: 1rem;
+  resize: vertical;
+  width: 33rem;
+  height: 8rem;
+}
+
+.signature{
+  margin-top: 3rem;
+  width: 300px;
+  height: 120px;
+	text-align: center;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	color: black;
+  margin-bottom: 4rem;
+  border: none;
+	background-color: #FBF8EB;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: solid black 1px;
+}
+
+.signature h3{
+  margin-top: 0rem;
+  margin-bottom: .5rem;
+  color:  rgb(1, 1, 63);
+  text-shadow: 1px 1px skyblue;
+}
+
+#container td, th{
+  padding:1rem;
+}
+
+#container a{
+  color: blue;
+}
+
+#container a:hover{
+  color: red;
+}
+
+#container .button{
+  color:white;
+}
+
+#container .button:hover{
+  color:skyblue;
+}
+
+#centered {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.button{
+  background-color: rgb(1, 1, 63);
+  border-radius: .5rem;
+
+}
+
+.error{
+  color: red;
+  font-size: 1rem;
+}
+
+#centered a{
+  margin-top: 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding:.5rem;
+  color: white;
+  background-color: rgb(1, 1, 63);
+  border-radius: .5rem;
+  border: 2px solid #1C6EA4;
+}
+
+#centered a:hover{
+  color: skyblue;
+}
+
+#top h1 {
+  text-align: center;
+  color: rgb(1, 1, 63);
+  text-shadow: 1.5px 1.5px lightblue;
+  font-size: 2.5rem;
+  padding-top: 10rem;
+}
+
+table.application {
+  border: 2px solid #1C6EA4;
+  background-color: rgb(1, 1, 63);
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  color: white;
+}
+table.application td, table.application th {
+  border: 2px solid #1C6EA4;
+  padding: 3px 2px;
+}
+table.application tbody td {
+  font-size: 13px;
+}
+table.application td:nth-child(even) {
+  background: #FBF8EB;
+  color: black;
+}
+table.application thead {
+  background: rgb(1, 1, 63);
+  border-bottom: 2px solid #1C6EA4;
+  text-align: center;
+}
+table.application thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #1C6EA4;
+}
+table.application thead th:first-child {
+  border-left: 2px solid #1C6EA4;
+}
+
+table.application tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  border-top: 2px solid #1C6EA4;
+}
+table.application tfoot td {
+  font-size: 14px;
+}
+table.application tfoot .links {
+  text-align: right;
+}
+table.application tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}

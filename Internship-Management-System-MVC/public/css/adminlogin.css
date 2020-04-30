@@ -1,0 +1,55 @@
+body {
+  background: lightgray;
+}
+
+/*redirect h1 styling*/
+h1 {
+  text-align: center;
+  color: rgb(1, 1, 63);
+  text-shadow: 2px 2px lightblue;
+  font-size: 2.3rem;
+  padding-top: 10rem;
+}
+
+#form {
+  text-align: center;
+  color:  rgb(1, 1, 63);
+  text-shadow: 1px 1px gray;
+}
+
+#form form input{
+  margin-bottom: 1rem;
+  border: none;
+  padding: .5rem;
+}
+
+#form form label {
+  font-size: 1.25rem;
+  display: block;
+}
+
+#form form .button {
+  border: solid black 1px;
+  padding: .5rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
+  background-color:  lightblue;
+  color: black;
+  font-size: 1rem;
+  font-family: 'Staatliches', sans-serif;
+  cursor: pointer;
+}
+
+#form form .button:hover{
+  color: white;
+}
+
+footer{
+  margin: 0;
+}
+
+div .error {
+  color: red;
+  margin-bottom: 1rem;
+  margin-top: -.5rem;
+}

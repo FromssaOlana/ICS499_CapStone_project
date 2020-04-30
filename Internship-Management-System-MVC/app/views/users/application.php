@@ -10,14 +10,17 @@
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
 
     <?php require APPROOT . '/views/inc/header.php'; ?>
-
     <div id='heading'>
+      <?php if($data['application_id'] == -1){ ?>
         <h1>Academic Internship Agreement</h1>
+      <?php } else{ ?>
+        <h1>Edit Academic Internship Agreement</h1>
+      <?php } ?>
         <p><strong> Please read the following guidelines to ensure your success in getting this Academic Internship approved</strong></p>
         <a style="text-decoration:none" href='<?php echo URLROOT?>/pages/guidelines'>Academic Internship Guidelines</a>
     </div>
     <div class="form">
-      <form enctype="multipart/form-data" action="<?php echo URLROOT; ?>/users/application/<?php echo -1 ?>" method="post">
+      <form enctype="multipart/form-data" action="<?php echo URLROOT; ?>/users/application/<?php echo $data['application_id'] ?>" method="post">
       <fieldset>  
         <legend>Student Information</legend>
 
@@ -190,9 +193,9 @@ liaison will be the internship evaluator." name = "site_supervisor_name" value =
 
         <div>
           <label>Internship Evaluator resume: </label>
-          <input type="hidden" name="MAX_FILE_SIZE" value="500000" /> 
+          <input type="hidden" name="MAX_FILE_SIZE" value="5000000" /> 
           <input type="file" title=
-"Submit your Internship Evaluator's resume. If no resume is available, you must
+"Submit your Internship Evaluator's resume less than 5 MB in size. If no resume is available, you must
 minimally list education and work experience on the form. If the faculty liaison 
 is the internship evaluator, you only need to submit the on-site supervisor’s resume." name= "internship_evaluator_resume"/>
           <br>
@@ -256,23 +259,26 @@ academic focus is public relations/communications." name = "academic_focus" valu
 
         <div>
           <label>Graduate or Undergraduate: </label>
-          <input name= "graduate_or_undergraduate" title="Check if you're a student in a Master's program" type="checkbox" class="checkgraduateorundergraduate" value= "Graduate">Graduate
+          <input name= "graduate_or_undergraduate" title="Check if you're a student in a Master's program" type="checkbox" class="checkgraduateorundergraduate" value= "Graduate" 
+          <?php echo (!empty($data['graduate_or_undergraduate']) && $data['graduate_or_undergraduate'] == "Graduate") ? 'checked="checked"' : ''; ?>/>Graduate
           &emsp;
-          <input name= "graduate_or_undergraduate" title="Check if you're a student in a Bachelor's program" type="checkbox" class="checkgraduateorundergraduate" value= "Undergraduate">Undergraduate
+          <input name= "graduate_or_undergraduate" title="Check if you're a student in a Bachelor's program" type="checkbox" class="checkgraduateorundergraduate" value= "Undergraduate"
+          <?php echo (!empty($data['graduate_or_undergraduate']) && $data['graduate_or_undergraduate'] == "Undergraduate") ? 'checked="checked"' : ''; ?>/>Undergraduate
           <br>
           <span class="error"><?php echo $data['graduate_or_undergraduate_err'] ?></span>
         </div>
 
         <div>
           <label>Grading Scale: </label>
-          <input name= "grading_scale" type="checkbox" title="Check if you wish to be graded on the standard grading scale ranging from A+ through F" class="checkgradingscale" value= "Letter Grade">Letter Grade
+          <input name= "grading_scale" type="checkbox" title="Check if you wish to be graded on the standard grading scale ranging from A+ through F" class="checkgradingscale" value= "Letter Grade"
+          <?php echo (!empty($data['grading_scale']) && $data['grading_scale'] == "Letter Grade") ? 'checked="checked"' : ''; ?>/>Letter Grade
           &emsp;
           <input name= "grading_scale" type="checkbox" title=
 "Some colleges/departments allow only S/N; check the appropriate guidelines.
 Check if you wish to be graded on a S/N grading scale. S: Pass/satisfactory: given 
 for grades equivalent to or better than “C-”: you receive credit for the course. 
 N: Fail/not satisfactory: given for grades equivalent to or below “D+”: you are 
-NOT granted credit." class="checkgradingscale" value= "S/N">S/N
+NOT granted credit." class="checkgradingscale" value= "S/N" <?php echo (!empty($data['grading_scale']) && $data['grading_scale'] == "S/N") ? 'checked="checked"' : ''; ?>/>S/N
           <br>
           <span class="error"><?php echo $data['grading_scale_err'] ?></span>
         </div>
@@ -287,16 +293,16 @@ NOT granted credit." class="checkgradingscale" value= "S/N">S/N
         <div>
           <label>I have read and meet the required guidelines of: </label>
           <input name= "college" type="checkbox" class="checkcollege" value= "College of Community Studies and Public Affairs" title=
-"I have read and meet the required guidelines of College of Community Studies and Public Affairs.">College of Community Studies and Public Affairs
+"I have read and meet the required guidelines of College of Community Studies and Public Affairs." <?php echo (!empty($data['college']) && $data['college'] == "College of Community Studies and Public Affairs") ? 'checked="checked"' : ''; ?>/>College of Community Studies and Public Affairs
           <br>
           <input name= "college" type="checkbox" class="checkcollege" value= "College of Individualized Studies" title=
-"I have read and meet the required guidelines of College of Individualized Studies.">College of Individualized Studies
+"I have read and meet the required guidelines of College of Individualized Studies." <?php echo (!empty($data['college']) && $data['college'] == "College of Individualized Studies") ? 'checked="checked"' : ''; ?>/>College of Individualized Studies
           <br>
           <input name= "college" type="checkbox" class="checkcollege" value= "College of Management" title=
-"I have read and meet the required guidelines of College of Management.">College of Management
+"I have read and meet the required guidelines of College of Management." <?php echo (!empty($data['college']) && $data['college'] == "College of Management") ? 'checked="checked"' : ''; ?>/>College of Management
           <br>
           <input name= "college" type="checkbox" class="checkcollege" value= "College of Sciences" title=
-"I have read and meet the required guidelines of College of Sciences.">College of Sciences
+"I have read and meet the required guidelines of College of Sciences." <?php echo (!empty($data['college']) && $data['college'] == "College of Sciences") ? 'checked="checked"' : ''; ?>/>College of Sciences
           <br>
           <span class="error"><?php echo $data['college_err'] ?></span>
         </div>
@@ -338,13 +344,17 @@ NOT granted credit." class="checkgradingscale" value= "S/N">S/N
 
         <div>
           <label>Compensation: </label>
-          <input type="checkbox" title="Check if you will not be receiving compensation during this internship." class="checkcompensation" id="Unpaid" name= "compensation" value="Unpaid"> Unpaid
+          <input type="checkbox" title="Check if you will not be receiving compensation during this internship." class="checkcompensation" id="Unpaid" name= "compensation" value="Unpaid"
+          <?php echo (!empty($data['compensation']) && $data['compensation'] == "Unpaid") ? 'checked="checked"' : ''; ?>/> Unpaid
           &emsp;
-          <input type="checkbox" title="Check if the Company/Organization is paying you hourly." class="checkcompensation" id="Wages" name= "compensation" value="Wages"> Wages
+          <input type="checkbox" title="Check if the Company/Organization is paying you hourly." class="checkcompensation" id="Wages" name= "compensation" value="Wages"
+          <?php echo (!empty($data['compensation']) && $data['compensation'] == "Wages") ? 'checked="checked"' : ''; ?>/> Wages
           &emsp;
-          <input type="checkbox" title="Check if the Company/Organization is paying you a fixed sum as a salary or allowance." class="checkcompensation" id="Stipend" name= "compensation" value="Stipend"> Stipend
+          <input type="checkbox" title="Check if the Company/Organization is paying you a fixed sum as a salary or allowance." class="checkcompensation" id="Stipend" name= "compensation" value="Stipend"
+          <?php echo (!empty($data['compensation']) && $data['compensation'] == "Stipend") ? 'checked="checked"' : ''; ?>/> Stipend
           &emsp;
-          <input type="checkbox" title="Check if the Company/Organization is paying your tuition or expenses." class="checkcompensation" id="Reimbursement" name= "compensation" value="Reimbursement"> Reimbursement  
+          <input type="checkbox" title="Check if the Company/Organization is paying your tuition or expenses." class="checkcompensation" id="Reimbursement" name= "compensation" value="Reimbursement"
+          <?php echo (!empty($data['compensation']) && $data['compensation'] == "Reimbursement") ? 'checked="checked"' : ''; ?>/> Reimbursement  
           <br>
           <span class="error"><?php echo $data['compensation_err']; ?></span>
           <br>
@@ -436,8 +446,12 @@ Internship. Sign your full name that is associated with this account and student
         </div>
 
         <div>
-					<input type="submit" class="button" value="Submit">
-					<input type="reset" class="button" value="Reset">
+          <?php if($data['application_id'] == -1){ ?>
+            <input type="submit" class="button" value="Submit">
+            <input type="reset" class="button" value="Reset">
+          <?php } else{ ?>
+            <input type="submit" class="button" value="Confirm Changes">
+          <?php } ?>
 				</div>
       </form>
     

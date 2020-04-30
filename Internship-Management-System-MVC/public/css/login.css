@@ -1,0 +1,85 @@
+body {
+	background-color: white;
+}
+
+h1 {
+	text-align: center;
+	color: rgb(1, 1, 63);
+	text-shadow: 1.5px 1.5px skyblue;
+	font-size: 2.8rem;
+	padding-top: 10rem;
+}
+
+.error {
+	color: red;
+}
+
+.form {
+	display: block;
+	text-align: center;
+}
+
+form {
+	width: 400px;
+	text-align: center;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+	text-shadow: 1.5px 1.5px black;
+	margin-bottom: 15rem;
+}
+
+form a:hover{
+	color: white;
+}
+
+form a{
+	color: skyblue;
+}
+
+label {
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	font-size: 1.2rem;
+}
+
+.subform	{
+	border: none;
+	background-color: rgb(1, 1, 63);
+	padding: 2rem;
+	border-radius: 1rem;
+}
+
+.subform:last-of-type {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+.button {
+	text-align: center;
+	font-size: 1.2rem;
+	cursor: pointer;
+	margin: 1rem;
+	margin-top: 3rem;
+	padding: .4rem 1.2rem;
+	background-color: lightblue;
+	border: none;
+	color: rgb(1, 1, 63);
+	font-family: 'Staatliches', sans-serif;
+}
+
+.button:hover{
+	color: white;
+}
+
+input[type="text"], input[type="password"], input[type="number"]{
+	padding: .5rem;
+	border: 1px solid black;
+}
+
+/* Keeps footer at bottom but overlaps data */
+footer {
+	margin:0;
+  }

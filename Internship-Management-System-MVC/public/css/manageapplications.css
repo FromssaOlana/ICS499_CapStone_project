@@ -1,0 +1,205 @@
+body {
+  background-color: white;
+}
+
+h1 {
+  text-align: center;
+  color:  rgb(1, 1, 63);
+  text-shadow: 1.5px 1.5px  skyblue;
+  font-size: 2.5rem;
+  padding-top: 10rem;
+}
+
+#admin-link {
+  text-align: center;
+}
+
+#admin-link a {
+  color:  rgb(1, 1, 63);
+  font-size: 1.3rem;
+  margin: 3rem;
+}
+
+#admin-link ul {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+#admin-link li {
+  float: left;
+  margin-left: -3rem;
+  margin-right: 1rem;
+  margin-top: 3rem;
+  list-style-type: none;
+}
+
+#admin-link li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+#admin-link input {
+  border: 2px solid black;
+  padding: .5rem;
+  border-radius: .2rem;
+  width: 10rem;
+}
+
+#admin-link a{
+  position: sticky;
+  margin: 5;
+  color: white;
+  font-size: .8rem;
+  padding-top:1rem;
+  padding-bottom:1rem;
+  padding-right:2rem;
+  padding-left:2rem;
+  background-color: rgb(1, 1, 63);
+  border-radius: 1rem;
+  border: solid black 1px;
+}
+
+/*hovers*/
+#admin-link li a:hover {
+  color: lightskyblue;
+}
+
+#container {
+  margin-top: 5rem;
+  margin-bottom: 15rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+}
+
+#container h2 {
+  text-align: center;
+  margin-top: 5rem;
+  font-size: 2rem;
+  margin-bottom: .5rem;
+  color:  rgb(1, 1, 63);
+  text-shadow: 1.5px 1.5px gray;
+}
+
+/*rows*/
+.user-row {
+  border-bottom: solid white;
+  padding: 1.5rem;
+}
+
+.user-row:first-of-type{
+  border-top: solid  rgb(1, 1, 63);
+}
+
+.user-row:last-of-type{
+  border-bottom: none;
+}
+
+/*username*/
+.user-row h3 {
+  color:  rgb(1, 1, 63);
+  font-size: 1.5rem;
+  margin-left: 5rem;
+  margin-bottom: 0;
+}
+
+.created-date {
+  margin-left: 5rem;
+  font-size: 1.1rem;
+  color:  rgb(1, 1, 63);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+/*view more link for user*/
+.user-row a {
+  color: white;
+  margin-left: 5rem;
+  font-size: .8rem;
+  padding-top:1rem;
+  padding-bottom:1rem;
+  padding-right:2rem;
+  padding-left:2rem;
+  background-color: rgb(1, 1, 63);
+  border-radius: 1rem;
+  border: solid black 1px;
+  text-decoration: none;
+}
+
+.user-row a:hover{
+  color: skyblue;
+}
+
+.application #actions {
+  color:  rgb(1, 1, 63);
+  text-align: center;
+  font-size: .9rem;
+  margin: .1rem;
+}
+
+.application #actions:hover {
+  color: red;
+}
+
+a:hover {
+  color: skyblue;
+  transition: .5s;
+}
+
+table.application {
+  font-family: "Times New Roman", Times, serif;
+  border: 2px solid #000000;
+  background-color: #FBF8EB;
+  width: 100%;
+  text-align: center;
+}
+table.application td, table.application th {
+  border: 1px solid #000000;
+  padding: 6px 10px;
+}
+table.application tbody td {
+  font-size: 14px;
+  color: #000000;
+}
+table.application tr:nth-child(even) {
+  background: #A6C8EB;
+}
+table.application thead {
+  background: #01013F;
+  border-bottom: 1px solid black;
+}
+table.application thead th {
+  font-size: 21px;
+  font-weight: bold;
+  color: #F0F0F0;
+  text-align: center;
+  border-left: 0px solid #000000;
+}
+table.application thead th:first-child {
+  border-left: none;
+}
+
+table.application tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #F0F0F0;
+  background: #01013F;
+  border-top: 1px solid #000000;
+}
+table.application tfoot td {
+  font-size: 14px;
+}
+table.application tfoot .links {
+  text-align: right;
+}
+table.application tfoot .links a{
+  display: inline-block;
+  background: #FFFFFF;
+  color: #000000;
+  padding: 2px 8px;
+  border-radius: 5px;
+}

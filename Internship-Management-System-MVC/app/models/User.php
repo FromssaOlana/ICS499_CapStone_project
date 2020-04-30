@@ -237,6 +237,21 @@
       }
     }
 
+    public function findApplicationByStudentIDAndApplicationID($student_id, $application_id){
+      $this->db->query("SELECT * FROM applications WHERE student_id = :student_id AND application_id = :application_id");
+      $this->db->bind(':student_id', $student_id);
+      $this->db->bind(':application_id', $application_id);
+
+      $row = $this->db->single();
+
+      //Check Rows
+      if($this->db->rowCount() > 0){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     // Find User BY Email
     public function findUserByEmail($email){
       $this->db->query("SELECT * FROM users WHERE email = :email");

@@ -1,0 +1,116 @@
+body {
+	background-color: white;
+}
+
+h1 {
+	margin: 0;
+	padding-top: 8rem;
+	text-align: center;
+	color: rgb(1, 1, 63);
+	text-shadow: 1.5px 1.5px skyblue;
+	font-size: 2.8rem;
+	padding-bottom: 1rem;
+}
+
+.error {
+	color: red;
+}
+
+#heading {
+	text-align: center;	
+	color: purple;
+	padding-bottom: 3rem;
+}
+
+#heading p{
+	margin-bottom: 2rem;
+}
+
+#heading a{
+	padding-top:1rem;
+	padding-bottom:1rem;
+	padding-left:2rem;
+	padding-right:2rem;
+	background-color:#FBF8EB;;
+	border-radius: 1rem;
+	border: solid black 1px;
+	color: purple;
+	margin-top: 4rem;
+}
+
+legend{
+	font-size: 2rem;
+	text-shadow: 1px 1px skyblue;
+}
+
+label{
+	text-shadow: 1px 1px skyblue;
+	font-size: 1.5rem;
+}
+
+fieldset{
+	margin-bottom: 1rem;
+	border: solid skyblue 1px;
+}
+
+input{
+	margin-bottom: .5rem;
+}
+
+#heading a:hover{
+	color: skyblue;
+}
+
+#heading h1{
+	padding-top: 10rem;
+}
+
+form {
+	width: 32rem;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	border: none;
+	background-color: rgb(1, 1, 63);
+	color: white;
+	padding: 2rem;
+	border-radius: 1rem;
+	margin-bottom: 8rem;
+	padding-bottom: 2rem;
+}
+
+label {
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	font-size: 1.2rem;
+}
+
+.button {
+	text-align: center;
+	font-size: 1.2rem;
+	cursor: pointer;
+	margin: 1rem;
+	margin-top: 3rem;
+	padding: .4rem 1.2rem;
+	background-color: skyblue;
+	border: none;
+	color: rgb(1, 1, 63);
+	font-family: 'Staatliches', sans-serif;
+}
+
+.button:hover{
+	color: white;
+}
+
+input[type='text'], input[type='password']{
+	padding: .5rem;
+	border: 1px solid black;
+	width: 15rem;
+}
+
+textarea {
+	width: 30rem;
+	height: 10rem;
+	resize: vertical; /* user can resize vertically, but width is fixed */
+}

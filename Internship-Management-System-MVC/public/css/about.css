@@ -1,0 +1,38 @@
+body {
+  background-color: white;
+  color: black;
+}
+
+#container {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2:first-of-type {
+  margin-top: 4rem;
+}
+
+h2 {
+  background-color: red;
+  padding-left: 1rem;
+}
+
+p {
+  font-size: 1.2rem;
+  margin: 3rem;
+  line-height: 1.5cm;
+}
+
+.centered {
+  text-align: center;
+}
+
+footer {
+  margin:0;
+}

@@ -1,0 +1,39 @@
+body {
+  background-color: white;
+}
+
+#delete {
+  color: rgb(1, 1, 63);
+  text-align: center;
+  margin: 0;
+  padding-top: 10rem;
+  text-shadow: 1.5px 1.5px lightblue;
+}
+
+form {
+  text-align: center;
+  margin-bottom: 25rem;
+}
+
+form label {
+  color: rgb(1, 1, 63);
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+form button {
+  border: none;
+  color: white;
+  background-color: red;
+  padding: .5rem 1rem;
+  cursor: pointer;
+  font-family: 'Staatliches', sans-serif;
+  border-radius: 1rem;
+  border: solid black 1px;
+  font-size: 1.5rem;
+}
+
+button:hover{
+  color: black;
+}

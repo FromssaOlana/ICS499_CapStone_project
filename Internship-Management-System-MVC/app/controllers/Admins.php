@@ -67,7 +67,7 @@
               $data['email_err'] = 'Please enter an email';
             } else if(!($this->validateStudentEmail($data['email']))){
               $data['email_err'] = "Please enter your student email in the following format: ab1080cd@go.minnstate.edu";
-            } else if ($this->userModel->findUserByEmail($data['email'])) {
+            } else if ($this->adminModel->findUserByEmail($data['email'])) {
               $data['email_err'] = 'Email is already taken.';
             } 
           } else{
@@ -198,6 +198,8 @@
           // Load View
           $this->view('admins/createuser', $data);
         }
+      } else{
+        redirect('admins/adminLogin');
       }
     }
 
@@ -253,17 +255,25 @@
   }
 
   public function deleteUser($user_name){
-    $data = [
-      'username' => $user_name,
-    ];
-    $this->view('admins/deleteuser',$data);
+    if($this->isLoggedInAdmin()){
+      $data = [
+        'username' => $user_name,
+      ];
+      $this->view('admins/deleteuser',$data);
+    } else{
+      redirect('admins/adminLogin');
+    }
   }
 
   public function deleteUserFunction($user_name){
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-      $this->adminModel->deleteUserByUserName($user_name);
-      redirect('admins/manageUsers');
-    } 
+    if($this->isLoggedInAdmin()){
+      if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $this->adminModel->deleteUserByUserName($user_name);
+        redirect('admins/manageUsers');
+      } 
+    } else{
+      redirect('admins/adminLogin');
+    }
   }
 
     public function adminLogin(){
